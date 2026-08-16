@@ -1,0 +1,1688 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>প্রশিক্ষক সহায়িকা — ফার্স্ট এইড ও ট্রেনিং পদ্ধতি</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16232E;
+    --ink-2:#1E3140;
+    --paper:#F7F5EF;
+    --paper-2:#EFEBE1;
+    --line:#D9D2C2;
+    --crimson:#B23A2E;
+    --crimson-dark:#8C2C22;
+    --amber:#C88B2E;
+    --teal:#2F6F5E;
+    --teal-dark:#234F42;
+    --text:#26221C;
+    --text-soft:#5B564C;
+    --white:#FFFFFF;
+    --radius:10px;
+    --shadow: 0 6px 18px rgba(22,35,46,0.12);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Hind Siliguri', sans-serif;
+    background:var(--paper);
+    color:var(--text);
+    line-height:1.7;
+  }
+  h1,h2,h3,h4,.display{
+    font-family:'Tiro Bangla', serif;
+    font-weight:400;
+    letter-spacing:0.2px;
+  }
+  a{color:inherit;}
+  button{font-family:inherit;}
+
+  /* ===== Top bar (mobile) ===== */
+  .topbar{
+    display:none;
+    position:sticky; top:0; z-index:50;
+    background:var(--ink);
+    color:var(--paper);
+    padding:12px 16px;
+    align-items:center;
+    justify-content:space-between;
+    box-shadow:var(--shadow);
+  }
+  .topbar .brand{display:flex; align-items:center; gap:10px; font-size:17px;}
+  .topbar .brand .stamp{width:26px;height:26px;}
+  .menu-btn{
+    background:none;border:1px solid rgba(247,245,239,0.35);
+    color:var(--paper); border-radius:8px; padding:8px 10px; font-size:18px; cursor:pointer;
+  }
+
+  /* ===== Layout ===== */
+  .shell{display:flex; min-height:100vh;}
+  .sidebar{
+    width:320px; flex-shrink:0;
+    background:var(--ink);
+    color:var(--paper);
+    position:sticky; top:0; height:100vh; overflow-y:auto;
+    padding:26px 20px 40px;
+  }
+  .sidebar::-webkit-scrollbar{width:6px;}
+  .sidebar::-webkit-scrollbar-thumb{background:rgba(247,245,239,0.2); border-radius:4px;}
+
+  .brand-full{display:flex; gap:12px; align-items:flex-start; margin-bottom:22px;}
+  .brand-full svg{flex-shrink:0; margin-top:2px;}
+  .brand-full .titles h1{font-size:20px; margin:0 0 2px; color:var(--paper);}
+  .brand-full .titles p{font-size:12.5px; margin:0; color:#B9C2CB; letter-spacing:0.3px;}
+
+  .search-wrap{margin-bottom:20px;}
+  .search-wrap input{
+    width:100%; padding:10px 12px; border-radius:8px; border:1px solid rgba(247,245,239,0.25);
+    background:rgba(247,245,239,0.08); color:var(--paper); font-size:14px; outline:none;
+  }
+  .search-wrap input::placeholder{color:#8B98A3;}
+  .search-wrap input:focus{border-color:var(--amber);}
+
+  .progress-box{
+    background:rgba(247,245,239,0.06);
+    border:1px solid rgba(247,245,239,0.14);
+    border-radius:10px; padding:12px 14px; margin-bottom:22px;
+  }
+  .progress-box .pb-label{font-size:12px; color:#B9C2CB; display:flex; justify-content:space-between; margin-bottom:8px;}
+  .progress-track{height:6px; background:rgba(247,245,239,0.15); border-radius:4px; overflow:hidden;}
+  .progress-fill{height:100%; background:linear-gradient(90deg,var(--teal),var(--amber)); width:0%; transition:width .4s ease;}
+
+  .nav-part-label{
+    font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--amber);
+    margin:22px 0 10px; display:flex; align-items:center; gap:8px;
+  }
+  .nav-part-label::after{content:""; flex:1; height:1px; background:rgba(247,245,239,0.18);}
+  .nav-part-label:first-of-type{margin-top:0;}
+
+  .nav-item{
+    display:flex; align-items:center; gap:10px;
+    padding:9px 10px; border-radius:8px; cursor:pointer;
+    font-size:14.5px; color:#D7DEE3; margin-bottom:3px;
+    transition:background .15s ease, color .15s ease;
+    border:1px solid transparent;
+  }
+  .nav-item:hover{background:rgba(247,245,239,0.08);}
+  .nav-item.active{
+    background:rgba(178,58,46,0.22);
+    border-color:rgba(178,58,46,0.5);
+    color:#FFFFFF;
+  }
+  .nav-item .tag{
+    flex-shrink:0; width:26px; height:26px; border-radius:6px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:11.5px; font-weight:600; background:rgba(247,245,239,0.1); color:#B9C2CB;
+  }
+  .nav-item.active .tag{background:var(--crimson); color:#fff;}
+  .nav-item .learned-dot{
+    margin-inline-start:auto; width:9px; height:9px; border-radius:50%;
+    background:rgba(247,245,239,0.15); flex-shrink:0;
+  }
+  .nav-item .learned-dot.on{background:var(--teal); box-shadow:0 0 0 2px rgba(47,111,94,0.35);}
+
+  .sidebar-footer{margin-top:28px; font-size:11.5px; color:#7C8994; line-height:1.6;}
+
+  /* ===== Main ===== */
+  .main{flex:1; min-width:0;}
+  .main-inner{max-width:880px; margin:0 auto; padding:44px 40px 90px;}
+
+  .topic-header{
+    border-bottom:2px solid var(--ink);
+    padding-bottom:20px; margin-bottom:28px;
+  }
+  .topic-eyebrow{
+    display:flex; align-items:center; gap:10px; margin-bottom:10px;
+  }
+  .badge{
+    font-size:11.5px; font-weight:600; letter-spacing:0.6px; text-transform:uppercase;
+    padding:4px 10px; border-radius:20px; color:#fff;
+  }
+  .badge.aid{background:var(--crimson);}
+  .badge.tot{background:var(--teal);}
+  .badge.info{background:var(--amber);}
+  .day-chip{
+    font-size:12px; color:var(--text-soft); background:var(--paper-2);
+    border:1px solid var(--line); padding:4px 10px; border-radius:20px;
+  }
+  .topic-header h2{font-size:32px; margin:0 0 6px; color:var(--ink);}
+  .topic-header .subtitle{color:var(--text-soft); font-size:15.5px; margin:0;}
+
+  .section-block{margin-bottom:30px;}
+  .section-block h3{
+    font-size:19px; color:var(--ink); margin:0 0 12px;
+    display:flex; align-items:center; gap:9px;
+  }
+  .section-block h3 .dot{width:9px;height:9px;border-radius:50%; background:var(--crimson); flex-shrink:0;}
+  .section-block.tot h3 .dot{background:var(--teal);}
+  .section-block p{margin:0 0 12px; color:var(--text);}
+  .section-block ul, .section-block ol{margin:0 0 12px; padding-inline-start:22px;}
+  .section-block li{margin-bottom:7px;}
+  .section-block strong{color:var(--ink);}
+
+  .do-dont{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:12px;}
+  @media(max-width:640px){.do-dont{grid-template-columns:1fr;}}
+  .do-box, .dont-box{border-radius:var(--radius); padding:16px 18px;}
+  .do-box{background:rgba(47,111,94,0.08); border:1px solid rgba(47,111,94,0.3);}
+  .dont-box{background:rgba(178,58,46,0.06); border:1px solid rgba(178,58,46,0.28);}
+  .do-box h4, .dont-box h4{margin:0 0 8px; font-size:14.5px; font-family:'Hind Siliguri'; font-weight:700;}
+  .do-box h4{color:var(--teal-dark);}
+  .dont-box h4{color:var(--crimson-dark);}
+  .do-box ul, .dont-box ul{margin:0; padding-inline-start:18px; font-size:14.5px;}
+  .do-box li, .dont-box li{margin-bottom:6px;}
+
+  .example-card{
+    background:var(--white); border:1px solid var(--line); border-radius:var(--radius);
+    padding:18px 20px; margin-bottom:12px; box-shadow:var(--shadow);
+  }
+  .example-card .ex-label{
+    font-size:12px; text-transform:uppercase; letter-spacing:0.8px; color:var(--amber); font-weight:700; margin-bottom:6px; display:block;
+  }
+
+  .trainer-note{
+    background:#FBF3DD; border:1px solid #E7CE8E; border-radius:var(--radius);
+    padding:18px 20px; margin:26px 0; position:relative;
+  }
+  .trainer-note::before{
+    content:"প্রশিক্ষক নোট"; position:absolute; top:-11px; inset-inline-start:16px;
+    background:var(--amber); color:#fff; font-size:11.5px; font-weight:700;
+    padding:3px 12px; border-radius:20px; letter-spacing:0.4px;
+  }
+  .trainer-note p{margin:8px 0 0;}
+  .trainer-note ul{margin:8px 0 0; padding-inline-start:20px;}
+
+  .mnemonic{
+    display:flex; align-items:center; gap:12px;
+    background:var(--ink); color:var(--paper); border-radius:var(--radius);
+    padding:16px 20px; margin:18px 0;
+  }
+  .mnemonic .m-icon{font-size:22px;}
+  .mnemonic b{color:var(--amber);}
+
+  .footer-nav{
+    display:flex; justify-content:space-between; gap:14px; margin-top:44px;
+    padding-top:22px; border-top:1px solid var(--line);
+  }
+  .footer-nav button{
+    background:var(--white); border:1px solid var(--line); border-radius:8px;
+    padding:12px 16px; cursor:pointer; font-size:14px; color:var(--ink);
+    display:flex; flex-direction:column; align-items:flex-start; gap:2px; max-width:47%;
+    transition:border-color .15s ease;
+  }
+  .footer-nav button:hover{border-color:var(--crimson);}
+  .footer-nav button span.lbl{font-size:11px; color:var(--text-soft);}
+  .footer-nav button.next{align-items:flex-end; text-align:right; margin-inline-start:auto;}
+  .footer-nav button:disabled{opacity:0.35; cursor:default;}
+
+  .mark-learned{
+    display:inline-flex; align-items:center; gap:8px; margin-top:6px;
+    background:var(--white); border:1.5px solid var(--teal); color:var(--teal-dark);
+    padding:8px 16px; border-radius:20px; cursor:pointer; font-size:14px; font-weight:600;
+  }
+  .mark-learned.on{background:var(--teal); color:#fff;}
+
+  /* Welcome/home */
+  .home-hero{
+    background:var(--ink); color:var(--paper); border-radius:16px;
+    padding:38px 34px; margin-bottom:34px; position:relative; overflow:hidden;
+  }
+  .home-hero::after{
+    content:""; position:absolute; inset-inline-end:-40px; top:-40px; width:200px; height:200px;
+    border-radius:50%; background:radial-gradient(circle, rgba(178,58,46,0.35), transparent 70%);
+  }
+  .home-hero h1{font-size:30px; margin:0 0 10px; position:relative;}
+  .home-hero p{color:#C3CBD2; font-size:15px; max-width:560px; position:relative; margin:0;}
+  .home-cards{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:30px;}
+  @media(max-width:640px){.home-cards{grid-template-columns:1fr;}}
+  .home-card{
+    background:var(--white); border:1px solid var(--line); border-radius:var(--radius);
+    padding:22px; box-shadow:var(--shadow); cursor:pointer; transition:transform .15s ease;
+  }
+  .home-card:hover{transform:translateY(-2px);}
+  .home-card .hc-badge{font-size:11.5px; font-weight:700; letter-spacing:0.5px;}
+  .home-card.aid .hc-badge{color:var(--crimson);}
+  .home-card.tot .hc-badge{color:var(--teal);}
+  .home-card h3{margin:8px 0 6px; font-size:19px; color:var(--ink);}
+  .home-card p{margin:0; font-size:14px; color:var(--text-soft);}
+
+  .search-results{margin-top:10px;}
+  .search-hit{
+    padding:9px 10px; border-radius:8px; cursor:pointer; font-size:13.5px; color:#D7DEE3;
+  }
+  .search-hit:hover{background:rgba(247,245,239,0.08);}
+  .search-hit b{color:var(--amber);}
+
+  @media(max-width:900px){
+    .topbar{display:flex;}
+    .sidebar{
+      position:fixed; inset-inline-start:-320px; top:0; z-index:60; width:300px;
+      transition:inset-inline-start .25s ease; box-shadow:0 0 40px rgba(0,0,0,0.4);
+    }
+    .sidebar.open{inset-inline-start:0;}
+    .overlay{
+      display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:55;
+    }
+    .overlay.show{display:block;}
+    .main-inner{padding:28px 18px 70px;}
+    .topic-header h2{font-size:26px;}
+  }
+
+  @media print{
+    .sidebar, .topbar, .footer-nav, .mark-learned{display:none !important;}
+    .main-inner{max-width:none; padding:0;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <svg class="stamp" viewBox="0 0 40 40"><rect width="40" height="40" rx="8" fill="#B23A2E"/><rect x="17" y="9" width="6" height="22" fill="#fff"/><rect x="9" y="17" width="22" height="6" fill="#fff"/></svg>
+    প্রশিক্ষক সহায়িকা
+  </div>
+  <button class="menu-btn" id="menuBtn">☰</button>
+</div>
+<div class="overlay" id="overlay"></div>
+
+<div class="shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand-full">
+      <svg width="40" height="40" viewBox="0 0 40 40"><rect width="40" height="40" rx="9" fill="#B23A2E"/><rect x="17" y="9" width="6" height="22" fill="#fff"/><rect x="9" y="17" width="22" height="6" fill="#fff"/></svg>
+      <div class="titles">
+        <h1>প্রশিক্ষক সহায়িকা</h1>
+        <p>ফার্স্ট এইড ও ট্রেনিং অব ট্রেইনার্স (৫ দিন)</p>
+      </div>
+    </div>
+
+    <div class="search-wrap">
+      <input type="text" id="searchInput" placeholder="টপিক খুঁজুন... (যেমন: বার্ন, CPR)">
+      <div class="search-results" id="searchResults"></div>
+    </div>
+
+    <div class="progress-box">
+      <div class="pb-label"><span>শেখা হয়েছে</span><span id="progressText">0 / 0</span></div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+
+    <div id="navContainer"></div>
+
+    <div class="sidebar-footer">
+      Day 1–3: First Aid বিষয়বস্তু (ICRC/Red Cross ধারা)<br>
+      Day 4–5: Training of Trainers পদ্ধতি
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="main-inner" id="mainContent"></div>
+  </main>
+</div>
+
+<script>
+/* ================= CONTENT DATA ================= */
+const topics = [
+/* ---------------- PART A: FIRST AID (Day 1-3) ---------------- */
+{
+  id:"icrc-info", part:"info", day:"Fact Sheet · Jan–Dec 2025", num:"ℹ",
+  title:"ICRC বাংলাদেশে — জানুয়ারি-ডিসেম্বর ২০২৫",
+  subtitle:"রেড ক্রস আন্তর্জাতিক কমিটি (ICRC)-এর বাংলাদেশে ২০২৫ সালের কার্যক্রমের সংক্ষিপ্ত চিত্র",
+  html:`
+  <div class="section-block">
+    <h3><span class="dot"></span>ICRC কী</h3>
+    <p>International Committee of the Red Cross (ICRC) একটি নিরপেক্ষ, স্বাধীন ও মানবিক আন্তর্জাতিক সংস্থা, যার মূল কাজ সশস্ত্র সংঘাত ও অন্যান্য সহিংসতায় ক্ষতিগ্রস্ত মানুষের জীবন ও মর্যাদা রক্ষা করা এবং তাদের সহায়তা দেওয়া। বাংলাদেশে ICRC আটক ব্যক্তিদের অবস্থা পর্যবেক্ষণ করে, বাংলাদেশ রেড ক্রিসেন্ট সোসাইটি (BDRCS)-এর সাথে মিলে কাজ করে, এবং আন্তর্জাতিক মানবিক আইন (IHL) সম্পর্কে সচেতনতা বাড়ায়।</p>
+  </div>
+
+  <div class="section-block">
+    <h3><span class="dot"></span>পুলিশ ও ফার্স্ট এইড প্রশিক্ষণ — ২০২৫-এর হাইলাইটস</h3>
+    <p>এই কোর্সের সাথে সরাসরি সম্পর্কিত কিছু তথ্য:</p>
+    <ul>
+      <li>ঢাকা, চট্টগ্রাম, রাজশাহী মেট্রোপলিটন পুলিশ, কক্সবাজার ও খুলনা জেলা পুলিশ থেকে <strong>১৪০ জন পুলিশ সদস্য</strong> ও CRP-এর সদস্যরা বেসিক ফার্স্ট এইড প্রশিক্ষণ পেয়েছেন</li>
+      <li><strong>৪৯৫ জন পুলিশ কর্মকর্তা</strong> বলপ্রয়োগের নিয়ম, আচরণবিধি ও আন্তর্জাতিক পুলিশিং মানদণ্ড নিয়ে প্রশিক্ষণ পেয়েছেন</li>
+      <li>প্রায় <strong>১,৪০০ জন সিনিয়র সামরিক ও পুলিশ কর্মকর্তা</strong> আন্তর্জাতিক মানবিক আইন (IHL)-এ প্রশিক্ষিত হয়েছেন, যার মধ্যে ১,০১০ জন জাতিসংঘ মিশনে (MINUSCA, MONUSCO) যাওয়ার আগে প্রি-ডিপ্লয়মেন্ট প্রশিক্ষণ পেয়েছেন</li>
+      <li>জরুরি সাড়াদানের সক্ষমতা বাড়াতে ১১টি BDRCS ইউনিট ও ঢাকা-চট্টগ্রাম-রাজশাহী মেট্রোপলিটন পুলিশ, খুলনা-কক্সবাজার জেলা পুলিশ এবং CRP-কে <strong>১০,১৪০টি PPE সরঞ্জাম, ১,৯৩৩টি ফার্স্ট এইড সরঞ্জাম, ৬৪টি ফার্স্ট এইড রেসপন্ডার ব্যাগ ও ২টি CPR ম্যানিকিন</strong> সরবরাহ করা হয়েছে</li>
+    </ul>
+  </div>
+
+  <div class="section-block">
+    <h3><span class="dot"></span>আটক কেন্দ্র ও মানবিক কার্যক্রম</h3>
+    <ul>
+      <li>৩টি স্থানে ১১,০০০-এর বেশি আটক ব্যক্তির জন্য <strong>৯টি ডিটেনশন ভিজিট</strong> পরিচালিত হয়েছে</li>
+      <li><strong>৩৯০ জন ঝুঁকিপূর্ণ আটক ব্যক্তি</strong> (বিদেশি ও পরিবারের সাথে যোগাযোগহীন) হাইজিন কিট পেয়েছেন</li>
+      <li>কক্সবাজার জেলা কারাগারের <strong>২,৯২৫ জন</strong> আটক ব্যক্তি ও কর্মী নিরাপদ পানীয় জল ব্যবস্থা ও বিনোদন সুবিধা থেকে উপকৃত হয়েছেন</li>
+      <li><strong>৬৯৫ জন নিখোঁজ ব্যক্তি</strong>র পরিণতি ও অবস্থান নিশ্চিত করা হয়েছে; পরিবারের সাথে যোগাযোগের জন্য ৬১২টি রেড ক্রস মেসেজ ও ৩০টি সালামত (মৌখিক বার্তা) আদান-প্রদান হয়েছে</li>
+    </ul>
+  </div>
+
+  <div class="section-block">
+    <h3><span class="dot"></span>BDRCS প্রশিক্ষণ ও অন্যান্য কার্যক্রম</h3>
+    <ul>
+      <li><strong>২৭০ জন BDRCS যুব স্বেচ্ছাসেবক ও কর্মী</strong> অ্যাডভান্সড ফার্স্ট এইড প্রশিক্ষণ পেয়েছেন, এর মধ্যে ২৪ জন ট্রেনিং অব ট্রেইনার্স (ToT) এবং ২৯ জন রিফ্রেশার প্রশিক্ষণ সম্পন্ন করেছেন</li>
+      <li>দেশজুড়ে সহিংসতা ও জরুরি পরিস্থিতিতে <strong>৬৩টি BDRCS ফার্স্ট এইড টিম</strong> মোতায়েন হয়েছে — যার মধ্যে মাইলস্টোন প্লেন দুর্ঘটনা ও কড়াইল বস্তির আগুন উল্লেখযোগ্য — মোট <strong>১,০৩১ জনকে</strong> প্রাথমিক চিকিৎসা দেওয়া হয়েছে এবং <strong>২২৬ জনকে</strong> হাসপাতালে রেফার করা হয়েছে</li>
+      <li><strong>১২৪ জন প্রতিবন্ধী ব্যক্তি</strong> সামাজিক অন্তর্ভুক্তিমূলক ক্রীড়া কার্যক্রমে অংশ নিয়েছেন এবং ১০৫ জন পুনর্বাসন পেশাজীবী প্রশিক্ষিত হয়েছেন</li>
+    </ul>
+  </div>
+
+  <div class="trainer-note">
+    <p><strong>সূত্র:</strong> ICRC ফ্যাক্ট শিট — "The ICRC in Bangladesh, January–December 2025" (© ICRC, June 2026)। বিস্তারিত জানতে: icrc.org/bd</p>
+  </div>
+  `
+},
+{
+  id:"aid-overview", part:"aid", day:"সূচি", num:"সূ",
+  title:"ফার্স্ট এইড — ৩ দিনের কার্যক্রম সূচি",
+  subtitle:"Day 1 থেকে Day 3 পর্যন্ত কোন দিনে কী শেখানো হবে, তার ধারাবাহিক সূচি",
+  html:`
+  <div class="section-block">
+    <h3><span class="dot"></span>Day 1 — পরিচিতি, শ্বাসরোধ ও CPR</h3>
+    <p>প্রথম দিনে অংশগ্রহণকারীদের উপস্থিতি, প্রশিক্ষণের উদ্দেশ্য ও প্রি-ইভ্যালুয়েশনের পর মূল বিষয়বস্তু শুরু হয়:</p>
+    <ul>
+      <li><strong>Session 1 — ফার্স্ট এইডের পরিচিতি:</strong> ফার্স্ট এইড কী, DRABC নীতি, AVPU স্কেল, PPE ও Primary/Secondary Assessment</li>
+      <li><strong>Session 2 — শ্বাসরোধ (Choking):</strong> আংশিক ও সম্পূর্ণ বাধা চেনা, পিঠে চাপড় ও Heimlich Maneuver</li>
+      <li><strong>Session 3 — CPR:</strong> বয়সভিত্তিক (Adult/Children/Infant) কম্প্রেশন কৌশল, ৩০:২ অনুপাত</li>
+      <li><strong>Session 4 — শক (Shock) ও প্রতিরোধ</strong></li>
+      <li><strong>Session 5 — রক্তক্ষরণ (Bleeding) ও তার ব্যবস্থাপনা</strong></li>
+    </ul>
+  </div>
+
+  <div class="section-block">
+    <h3><span class="dot"></span>Day 2 — ক্ষত থেকে বিষক্রিয়া পর্যন্ত</h3>
+    <p>দ্বিতীয় দিনের শুরুতে আগের দিনের রিভিউ, এরপর শারীরিক আঘাত-সংক্রান্ত বিষয়গুলো ধারাবাহিকভাবে শেখানো হয়:</p>
+    <ul>
+      <li><strong>Session 6 — ক্ষত ও ব্যান্ডেজ করা (Wounds & Dressing)</strong></li>
+      <li><strong>Session 7 — পোড়া (Burn) ও তার ব্যবস্থাপনা</strong></li>
+      <li><strong>Session 8 — খিঁচুনি, অজ্ঞান হয়ে পড়া ও অচেতনতা (Fit, Fainting & Unconsciousness)</strong></li>
+      <li><strong>Session 9 — হাড় ভাঙা ও স্প্লিন্টিং (Bone Fracture and Immobilization)</strong></li>
+      <li><strong>Session 10 — বিষক্রিয়া (Poisoning)</strong></li>
+    </ul>
+  </div>
+
+  <div class="section-block">
+    <h3><span class="dot"></span>Day 3 — কামড়, পরিবহন ও মূল্যায়ন</h3>
+    <p>তৃতীয় দিনে ফার্স্ট এইড অংশ শেষ হয় এবং ট্রেনিং অব ট্রেইনার্স (ToT) অংশের প্রাথমিক পরিচিতি দিয়ে দিনটি শেষ হয়:</p>
+    <ul>
+      <li><strong>Session 11 — প্রাণীর কামড় (Bites)</strong></li>
+      <li><strong>Session 12 — আক্রান্ত ব্যক্তিকে পরিবহন (Transportation of Casualty)</strong></li>
+      <li><strong>কোর্স রিভিউ ও লিখিত মূল্যায়ন (Course Review & Evaluation)</strong></li>
+      <li><strong>ToT Basic Information</strong> — পরের দুই দিনের ট্রেনিং মেথডোলজি অংশের ভূমিকা</li>
+    </ul>
+  </div>
+
+  <div class="trainer-note">
+    <p><strong>প্রশিক্ষকের জন্য নোট:</strong> প্রতিদিন শুরুতে আগের দিনের রিভিউ রাখা হয়েছে যাতে ধারাবাহিকতা বজায় থাকে। প্রতিটি সেশনের বিস্তারিত পড়তে বাম পাশের তালিকা থেকে সংশ্লিষ্ট টপিকে ক্লিক করুন।</p>
+  </div>
+  `
+},
+{
+  id:"aid-1", part:"aid", day:"Day 1 · Session 1", num:1,
+  title:"ফার্স্ট এইডের পরিচিতি",
+  subtitle:"ফার্স্ট এইড কী, কেন জরুরি, এবং একজন রেসপন্ডারের প্রাথমিক দায়িত্ব",
+  html:`
+  <div class="section-block">
+    <h3><span class="dot"></span>ফার্স্ট এইড কী</h3>
+    <p>ফার্স্ট এইড হলো কোনো আকস্মিক অসুস্থতা বা দুর্ঘটনায় আক্রান্ত ব্যক্তিকে চিকিৎসকের হাতে পৌঁছানোর আগ পর্যন্ত দেওয়া তাৎক্ষণিক ও প্রাথমিক সাহায্য। এর লক্ষ্য তিনটি —</p>
+    <ul>
+      <li><strong>জীবন রক্ষা করা</strong> — শ্বাসনালী খোলা রাখা, রক্তক্ষরণ বন্ধ করা</li>
+      <li><strong>অবস্থার অবনতি রোধ করা</strong> — আঘাত আরও গুরুতর না হতে দেওয়া</li>
+      <li><strong>সুস্থতার উন্নতিতে সহায়তা করা</strong> — আরাম ও মানসিক সহায়তা দেওয়া</li>
+    </ul>
+  </div>
+
+  <div class="section-block">
+    <h3><span class="dot"></span>ফার্স্ট এইডের দুটি মূলনীতি</h3>
+    <ul>
+      <li><strong>নিজেকে ডাক্তার মনে করা যাবে না</strong> — নিজের সাধ্যের বাইরে গিয়ে চিকিৎসা দেওয়ার চেষ্টা করবেন না, শুধু প্রাথমিক ও জীবনরক্ষাকারী সহায়তাটুকু দিন</li>
+      <li><strong>মাথা ঠান্ডা রেখে কাজ করতে হবে</strong> — যত জরুরি পরিস্থিতিই হোক, শান্ত থেকে ধাপে ধাপে কাজ করলে ভুল কম হয়</li>
+    </ul>
+  </div>
+
+  <div class="section-block">
+    <h3><span class="dot"></span>একজন ফার্স্ট এইডারের ভূমিকা — DRABC নীতি</h3>
+    <p>AVPU দিয়ে বোঝা গেলে আক্রান্ত ব্যক্তি অজ্ঞান (Unresponsive), তখন এই ধারাবাহিকতা মেনে DRABC প্রয়োগ করুন:</p>
+    <ol>
+      <li><strong>D — Danger (বিপদ যাচাই):</strong> নিজের, আক্রান্তের ও আশপাশের মানুষের নিরাপত্তা আগে নিশ্চিত করুন — জায়গাটি ঝুঁকিপূর্ণ কিনা দেখুন।</li>
+      <li><strong>R — Response (সাড়া পরীক্ষা):</strong> কাঁধে হালকা ঝাঁকুনি দিয়ে জোরে ডাকুন — "আপনি ঠিক আছেন?"</li>
+      <li><strong>A — Airway (শ্বাসনালী):</strong> মুখ খুলে দেখুন ও পরিষ্কার করুন, প্রয়োজনে মাথা পেছনে হেলিয়ে চোয়াল তুলে শ্বাসনালীতে বাতাস চলাচলের পথ খুলে দিন।</li>
+      <li><strong>B — Breathing (শ্বাস-প্রশ্বাস):</strong> নিচের "Look-Listen-Feel" পদ্ধতিতে ১০ সেকেন্ডের মধ্যে শ্বাস পরীক্ষা করুন।</li>
+      <li><strong>C — Circulation/CPR:</strong> শ্বাস না থাকলে সাথে সাথে CPR শুরু করুন এবং জরুরি সেবায় (৯৯৯) কল করুন।</li>
+    </ol>
+  </div>
+
+  <div class="section-block">
+    <h3><span class="dot"></span>শ্বাস পরীক্ষার পদ্ধতি — Look, Listen, Feel (১০ সেকেন্ডে)</h3>
+    <p>Breathing (B) ধাপে ১০ সেকেন্ডের মধ্যে তিনভাবে শ্বাস আছে কিনা যাচাই করুন:</p>
+    <ul>
+      <li><strong>Look (দেখা):</strong> চোখ দিয়ে দেখুন বুক ওঠানামা করছে কিনা</li>
+      <li><strong>Listen (শোনা):</strong> কান দিয়ে শুনুন শ্বাসের কোনো শব্দ হচ্ছে কিনা</li>
+      <li><strong>Feel (অনুভব করা):</strong> নিজের গাল (গাল হলো শরীরের একটি সংবেদনশীল অংশ) আক্রান্তের মুখ-নাকের কাছে নিয়ে অনুভব করুন গরম বাতাস বের হচ্ছে কিনা</li>
+    </ul>
+  </div>
+
+  <div class="section-block">
+    <h3><span class="dot"></span>সময়ের গুরুত্ব — গোল্ডেন টাইম</h3>
+    <p>শ্বাস-প্রশ্বাস বন্ধ হয়ে গেলে সময় সবচেয়ে বড় শত্রু। মৃত্যুর প্রধান দুটি কারণ হলো <strong>অতিরিক্ত রক্তক্ষরণ</strong> ও <strong>শ্বাস-প্রশ্বাস বন্ধ হয়ে যাওয়া</strong>।</p>
+    <ul>
+      <li>প্রথম <strong>৩ মিনিট</strong> হলো "গোল্ডেন টাইম" — এই সময়ের মধ্যে সাড়া দিতে পারলে সবচেয়ে ভালো ফল পাওয়া যায়</li>
+      <li>৩ মিনিট পার হয়ে <strong>৪-৬ মিনিটের মধ্যে</strong> মস্তিষ্কের ক্ষতি (ব্রেইন ড্যামেজ) বাড়তে থাকে</li>
+      <li><strong>১০ মিনিট</strong> পার হয়ে গেলে মৃত্যুর ঝুঁকি অনেক বেড়ে যায়</li>
+    </ul>
+  </div>
+
+  <div class="section-block">
+    <h3><span class="dot"></span>সচেতনতার মাত্রা যাচাই — AVPU স্কেল</h3>
+    <p>আক্রান্তের সচেতনতার (consciousness) মাত্রা দ্রুত বোঝার জন্য AVPU স্কেল ব্যবহার করুন:</p>
+    <ul>
+      <li><strong>A — Alertness (সজাগ):</strong> আক্রান্ত পুরোপুরি সজাগ ও সাড়া দিচ্ছে</li>
+      <li><strong>V — Response to Voice (ডাকে সাড়া):</strong> ডাকলে সাড়া দেয়</li>
+      <li><strong>P — Response to Pain (ব্যথায় সাড়া):</strong> ডাকে সাড়া না দিলে হালকা ব্যথা দিয়ে (যেমন চিমটি) পরীক্ষা করুন</li>
+      <li><strong>U — Unresponsive (কোনো সাড়া নেই):</strong> ডাকে বা ব্যথায় কোনো সাড়া নেই — এটি সবচেয়ে গুরুতর অবস্থা, এখানেই DRABC শুরু হয়</li>
+    </ul>
+  </div>
+
+  <div class="section-block">
+    <h3><span class="dot"></span>নিজের সুরক্ষা — PPE ব্যবহার</h3>
+    <p>আক্রান্তকে সাহায্য করার আগে যতটা সম্ভব নিজের সুরক্ষা সরঞ্জাম (Personal Protection Equipment) ব্যবহার করুন — যেমন গ্লাভস বা ওয়াটারপ্রুফ প্রোটেকশন — যাতে রক্ত বা শরীরের তরলের সংস্পর্শ থেকে সংক্রমণ এড়ানো যায়। হাতের কাছে প্রস্তুত PPE না থাকলে আশপাশে যা পাওয়া যায় (যেমন পরিষ্কার কাপড়, প্লাস্টিক) — এই স্থানীয় সম্পদ (local resource) ব্যবহার করুন।</p>
+  </div>
+
+  <div class="section-block">
+    <h3><span class="dot"></span>Primary ও Secondary Assessment</h3>
+    <p>DRABC দিয়ে জীবন-হুমকিস্বরূপ অবস্থা (Primary Assessment) সামলানোর পর, সময় ও পরিস্থিতি থাকলে নিচের ধাপে Secondary Assessment করুন:</p>
+    <ul>
+      <li>মাথা থেকে পা পর্যন্ত পুরো শরীর পর্যবেক্ষণ করুন আর কোনো ইনজুরি আছে কিনা — থাকলে তা নোট করে বা চিহ্ন দিয়ে রাখুন</li>
+      <li>আক্রান্তের পরিচিতি জানুন, বা আশপাশের কেউ তাকে চিনলে তার কাছ থেকে তথ্য নিন</li>
+      <li>আক্রান্তের আগে থেকে কোনো রোগ বা স্বাস্থ্য সমস্যা আছে কিনা জেনে নিন</li>
+      <li>হাসপাতালে পৌঁছানোর পর এই সংগৃহীত তথ্যগুলো দায়িত্বরত ডাক্তারকে জানান — এতে চিকিৎসা দ্রুত ও সঠিক হয়</li>
+    </ul>
+  </div>
+
+  <div class="do-dont">
+    <div class="do-box"><h4>✓ করণীয়</h4><ul>
+      <li>শান্ত থেকে পরিস্থিতি মূল্যায়ন করুন</li>
+      <li>প্রথমে দৃশ্যপট নিরাপদ কিনা যাচাই করুন</li>
+      <li>দ্রুত জরুরি সেবায় খবর দিন</li>
+      <li>আক্রান্তকে সাহস ও আশ্বাস দিন</li>
+    </ul></div>
+    <div class="dont-box"><h4>✗ বর্জনীয়</h4><ul>
+      <li>নিজের নিরাপত্তা উপেক্ষা করে ঝাঁপিয়ে পড়া</li>
+      <li>প্রশিক্ষণ ছাড়া ঝুঁকিপূর্ণ চিকিৎসা দেওয়া</li>
+      <li>আক্রান্তকে অকারণে নড়াচড়া করানো</li>
+      <li>ভিড় জমতে দেওয়া</li>
+    </ul></div>
+  </div>
+
+  <div class="example-card">
+    <span class="ex-label">বাস্তব উদাহরণ</span>
+    রাস্তায় একজন মোটরসাইকেল আরোহী পড়ে গেছেন। প্রথমে ট্রাফিক থামিয়ে দৃশ্যপট নিরাপদ করুন (Danger), তারপর তাঁর কাঁধে হাত রেখে ডাকুন (Response), সাড়া না দিলে শ্বাসনালী পরীক্ষা করুন (Airway) — এভাবেই DRABC প্রয়োগ হয়।
+  </div>
+
+  <div class="trainer-note">
+    <p><strong>কীভাবে শেখাবেন:</strong> শুধু তত্ত্ব না দিয়ে একজন প্রশিক্ষণার্থীকে "আক্রান্ত" সাজিয়ে বাকিদের দিয়ে DRABC ধাপে ধাপে জোরে বলে বলে অনুশীলন করান। প্রতিটি অক্ষর বলার সময় সংশ্লিষ্ট কাজটিও শারীরিকভাবে করে দেখাতে বলুন।</p>
+    <ul>
+      <li>রোল-প্লে: ৩ জনের দল — একজন আক্রান্ত, একজন রেসপন্ডার, একজন পর্যবেক্ষক</li>
+      <li>বোর্ডে DRABC লিখে প্রতিটি ধাপ আলাদা রঙে নির্দেশ করুন</li>
+    </ul>
+  </div>
+
+  <div class="mnemonic"><span class="m-icon">🧠</span> মনে রাখুন: <b>DRABC</b> = Danger, Response, Airway, Breathing, Circulation — "ডেঞ্জার আগে, তারপর রেসপন্স, এয়ারওয়ে, ব্রিদিং, সার্কুলেশন"</div>
+  `
+},
+{
+  id:"aid-2", part:"aid", day:"Day 1 · Session 2", num:2,
+  title:"শ্বাসরোধ (Choking)",
+  subtitle:"শ্বাসনালীতে বাধা পড়লে করণীয় — প্রাপ্তবয়স্ক ও শিশুর জন্য পদ্ধতি",
+  html:`
+  <div class="section-block">
+    <h3><span class="dot"></span>চোকিং কী ও কেন হয়</h3>
+    <p>খাবার, তরল বা অন্য কোনো বস্তু শ্বাসনালীতে আটকে গেলে শ্বাসপ্রবাহ আংশিক বা সম্পূর্ণভাবে বন্ধ হয়ে যায় — একেই চোকিং বলে।</p>
+  </div>
+
+  <div class="section-block">
+    <h3><span class="dot"></span>লক্ষণ চেনার উপায়</h3>
+    <ul>
+      <li><strong>আংশিক বাধা:</strong> কাশি দিতে পারে, কথা বলতে পারে, শ্বাসের সাথে শোঁ শোঁ শব্দ</li>
+      <li><strong>সম্পূর্ণ বাধা:</strong> কথা/কাশি বন্ধ, গলা চেপে ধরার (universal choking sign) ভঙ্গি, মুখ-ঠোঁট নীলচে হয়ে যাওয়া</li>
+    </ul>
+  </div>
+
+  <div class="section-block">
+    <h3><span class="dot"></span>ধাপে ধাপে করণীয় (প্রাপ্তবয়স্ক)</h3>
+    <ol>
+      <li>আংশিক বাধায়: আক্রান্তকে জোরে কাশতে উৎসাহ দিন, হস্তক্ষেপ করবেন না</li>
+      <li>সম্পূর্ণ বাধায়: পেছন থেকে দাঁড়িয়ে ৫টি জোরে <strong>পিঠে চাপড়</strong> (back blows) দিন — কাঁধের মাঝখানে, হাতের তালু দিয়ে</li>
+      <li>এতে কাজ না হলে <strong>Heimlich Maneuver (Abdominal Thrust):</strong> পেছন থেকে জড়িয়ে ধরুন, এক হাত মুঠি করে নাভির উপরে-পাঁজরের নিচে রাখুন, অন্য হাত দিয়ে চেপে ভেতরে-উপরের দিকে ৫ বার ঝাঁকি দিন</li>
+      <li>বাধা না সরা পর্যন্ত পিঠে চাপড় ও থ্রাস্ট পালাক্রমে চালিয়ে যান</li>
+      <li>অজ্ঞান হয়ে গেলে সাথে সাথে মাটিতে শুইয়ে CPR শুরু করুন এবং জরুরি সেবায় খবর দিন</li>
+    </ol>
+  </div>
+
+  <div class="do-dont">
+    <div class="do-box"><h4>✓ করণীয়</h4><ul>
+      <li>শিশুর ক্ষেত্রে থ্রাস্ট হালকা ও সাবধানে দিন</li>
+      <li>প্রতিটি থ্রাস্টকে আলাদা, জোরালো ধাক্কা হিসেবে দিন</li>
+      <li>বাধা সরে গেলেও চিকিৎসকের পরামর্শ নিতে বলুন</li>
+    </ul></div>
+    <div class="dont-box"><h4>✗ বর্জনীয়</h4><ul>
+      <li>মুখে আঙুল ঢুকিয়ে বস্তু বের করার চেষ্টা (blind finger sweep) করবেন না</li>
+      <li>কাশতে সক্ষম ব্যক্তির উপর থ্রাস্ট প্রয়োগ করবেন না</li>
+      <li>গর্ভবতী বা স্থূলকায় ব্যক্তিতে পেটে নয়, বুকে থ্রাস্ট দিন</li>
+    </ul></div>
+  </div>
+
+  <div class="example-card">
+    <span class="ex-label">বাস্তব উদাহরণ</span>
+    খাবার টেবিলে একজন সহকর্মী হঠাৎ গলা চেপে ধরে দাঁড়িয়ে গেলেন, কথা বলতে পারছেন না। এটি সম্পূর্ণ বাধার লক্ষণ — সাথে সাথে পেছনে গিয়ে পিঠে চাপড় শুরু করুন।
+  </div>
+
+  <div class="trainer-note">
+    <p><strong>কীভাবে শেখাবেন:</strong> Heimlich Maneuver হাতেকলমে শেখানো সবচেয়ে গুরুত্বপূর্ণ — শুধু বলে বোঝানো যথেষ্ট নয়।</p>
+    <ul>
+      <li>একটি ম্যানিকিন বা কুশন ব্যবহার করে হাতের অবস্থান দেখান</li>
+      <li>প্রতিটি প্রশিক্ষণার্থীকে জোড়ায় ভাগ করে হালকাভাবে (হাতের অবস্থান শুধু) অনুশীলন করান — বাস্তবে জোরে চাপ দেবেন না</li>
+      <li>"পিঠে ৫, পেটে ৫" — এই ছন্দে শেখান</li>
+    </ul>
+  </div>
+
+  <div class="mnemonic"><span class="m-icon">🧠</span> মনে রাখুন: <b>৫-৫ নিয়ম</b> — ৫টি পিঠে চাপড়, তারপর ৫টি পেটে থ্রাস্ট, বাধা না সরা পর্যন্ত পালাক্রমে চালিয়ে যান</div>
+  `
+},
+{
+  id:"aid-3", part:"aid", day:"Day 1 · Session 3", num:3,
+  title:"কার্ডিওপালমোনারি রিসাসিটেশন (CPR)",
+  subtitle:"হৃদস্পন্দন ও শ্বাস বন্ধ হয়ে গেলে জীবন বাঁচানোর কৌশল",
+  html:`
+  <div class="section-block">
+    <h3><span class="dot"></span>CPR কখন প্রয়োজন</h3>
+    <p>যখন কোনো ব্যক্তির হৃদস্পন্দন ও স্বাভাবিক শ্বাস-প্রশ্বাস বন্ধ হয়ে যায় (কার্ডিয়াক অ্যারেস্ট), তখন মস্তিষ্কে অক্সিজেন সরবরাহ ধরে রাখতে অবিলম্বে CPR শুরু করতে হয়। প্রতি মিনিট দেরিতে বেঁচে থাকার সম্ভাবনা ১০% করে কমে যায়।</p>
+  </div>
+
+  <div class="section-block">
+    <h3><span class="dot"></span>ধাপে ধাপে CPR (প্রাপ্তবয়স্ক)</h3>
+    <ol>
+      <li>নিরাপত্তা যাচাই করে সাড়া পরীক্ষা করুন; সাড়া না পেলে সাহায্যের জন্য চিৎকার করুন ও জরুরি সেবায় (৯৯৯) কল করান — সম্ভব হলে আশপাশের মানুষকে সাক্ষী রাখুন ও তাদের অনুমতি/সহযোগিতা নিন</li>
+      <li>আক্রান্তকে শক্ত সমতল জায়গায় চিৎ করে শোয়ান, বুক ভালোভাবে দেখার জন্য বুকের কাছের জামা যতটা সম্ভব খুলে দিন</li>
+      <li>হাতের চাপ ঠিক কোথায় দেবেন তা আগে ঠিক করে নিন — বুকের মাঝ বরাবর, স্তনহাড়ের (sternum) উপর, একদম নিচের ছোট গর্তের মতো নরম অংশ (xiphoid process) এড়িয়ে তার একটু উপরে এক হাতের গোড়ালি রাখুন, অন্য হাত তার উপর রাখুন, আঙুল একসাথে গেঁথে দিন</li>
+      <li>কনুই সোজা রেখে কাঁধ থেকে শক্তি দিয়ে <strong>৫-৬ সেমি (২-২.৫ ইঞ্চি) গভীর</strong> করে বুক চাপুন</li>
+      <li>প্রতি মিনিটে <strong>১০০-১২০ বার</strong> গতিতে ৩০টি কম্প্রেশন দিন (গানের তাল: "Stayin' Alive")</li>
+      <li>মাথা পেছনে হেলিয়ে চোয়াল তুলে শ্বাসনালী খুলে ২টি রেসকিউ ব্রিদ দিন (প্রশিক্ষণ থাকলে)</li>
+      <li>৩০ কম্প্রেশন + ২ ব্রিদ — এই চক্র পুনরাবৃত্তি করুন যতক্ষণ না জরুরি সেবা পৌঁছায় বা আক্রান্তের অবস্থার পরিবর্তন (change) আসে</li>
+      <li>AED (অটোমেটেড এক্সটার্নাল ডিফিব্রিলেটর) পাওয়া গেলে দ্রুত ব্যবহার করুন — যন্ত্রের নির্দেশনা অনুসরণ করুন</li>
+    </ol>
+  </div>
+
+  <div class="do-dont">
+    <div class="do-box"><h4>✓ করণীয়</h4><ul>
+      <li>প্রতিটি কম্প্রেশনের পর বুক পুরোপুরি উঠতে দিন</li>
+      <li>কম্প্রেশনে বিরতি যতটা সম্ভব কম রাখুন</li>
+      <li>ক্লান্ত হলে অন্য কেউ থাকলে পালাবদল করুন</li>
+      <li>শুরুর আগে আশপাশের মানুষকে সাক্ষী রাখুন বা অনুমতি নিন যেখানে সম্ভব</li>
+    </ul></div>
+    <div class="dont-box"><h4>✗ বর্জনীয়</h4><ul>
+      <li>শ্বাস পরীক্ষা না করেই CPR শুরু করবেন না</li>
+      <li>খুব হালকা বা খুব দ্রুত-অনিয়মিত চাপ দেবেন না</li>
+      <li>শিশুর ক্ষেত্রে প্রাপ্তবয়স্কের মতো একই বলে চাপ দেবেন না — এক হাত/দুই আঙুল ব্যবহার করুন</li>
+    </ul></div>
+  </div>
+
+  <div class="section-block">
+    <h3><span class="dot"></span>বয়স অনুযায়ী CPR-এর ভিন্নতা</h3>
+    <p>বয়সভেদে আক্রান্তকে তিন ভাগে ভাগ করা হয় — এবং প্রতিটির জন্য হাতের কৌশল ও চাপের গভীরতা আলাদা, যদিও অনুপাত সবসময় <strong>৩০ কম্প্রেশন : ২ শ্বাস</strong> এবং গতি মিনিটে ১০০-১২০ বার:</p>
+    <ul>
+      <li><strong>প্রাপ্তবয়স্ক (Adult, ১২ বছরের বেশি):</strong> দুই হাত একসাথে, স্তনহাড়ের উপর রেখে, <strong>২-২.৫ ইঞ্চি (৫-৬ সেমি)</strong> গভীর চাপ দিন</li>
+      <li><strong>শিশু (Children, ১-১২ বছর):</strong> শুধু <strong>এক হাত</strong> দিয়ে, <strong>১-১.৫ ইঞ্চি</strong> গভীর চাপ দিন</li>
+      <li><strong>নবজাতক/অতি শিশু (Infant, ০-১ বছর):</strong> <strong>দুই আঙুল</strong> (বা দুই বুড়ো আঙুল দিয়ে বুক ঘিরে ধরার কৌশল — নিচে নরম কাপড় দিয়ে শক্ত স্থানের উপর) দিয়ে, স্তনের মাঝামাঝি জায়গায় <strong>০.৫-১ ইঞ্চি</strong> গভীর হালকা চাপ দিন</li>
+    </ul>
+  </div>
+
+  <div class="trainer-note">
+    <p><strong>ব্যতিক্রম — পানিতে ডোবা (Drowning):</strong> পানিতে ডুবে যাওয়া আক্রান্ত অজ্ঞান ও শ্বাসহীন হলে সরাসরি কম্প্রেশনে না গিয়ে প্রথমে <strong>৫টি জীবনরক্ষাকারী রেসকিউ ব্রিদ (ফু)</strong> দিন, তারপর স্বাভাবিক ৩০ কম্প্রেশন + ২ ব্রিদ চক্রে ফিরে যান।</p>
+  </div>
+
+  <div class="example-card">
+    <span class="ex-label">বাস্তব উদাহরণ</span>
+    থানার ডিউটিরুমে একজন সহকর্মী হঠাৎ পড়ে গিয়ে সাড়া দিচ্ছেন না, শ্বাস স্বাভাবিক মনে হচ্ছে না। সাথে সাথে ৯৯৯-এ কল করে সমতল মেঝেতে শুইয়ে বুক কম্প্রেশন শুরু করুন — দেরি না করে।
+  </div>
+
+  <div class="trainer-note">
+    <p><strong>কীভাবে শেখাবেন:</strong> CPR সেশনের সবচেয়ে গুরুত্বপূর্ণ অংশ হলো ম্যানিকিনে হাতেকলমে অনুশীলন, কারণ হাতের অবস্থান ও গতি ভুল হলে কার্যকারিতা থাকে না।</p>
+    <ul>
+      <li>প্রতিটি প্রশিক্ষণার্থীকে কমপক্ষে ২ মিনিট একটানা কম্প্রেশন অনুশীলন করান — ক্লান্তি বোঝানোর জন্য</li>
+      <li>একটি জোরালো তালের গান বাজিয়ে সঠিক গতি অনুভব করান</li>
+      <li>জোড়ায় ভাগ করে একজন গণনা করুক, অন্যজন কম্প্রেশন দিক — এরপর পালাবদল</li>
+    </ul>
+  </div>
+
+  <div class="mnemonic"><span class="m-icon">🧠</span> মনে রাখুন: <b>৩০:২ অনুপাত</b>, গভীরতা ৫-৬ সেমি, গতি ১০০-১২০/মিনিট — "Stayin' Alive" গানের তালে চাপুন</div>
+  `
+},
+{
+  id:"aid-4", part:"aid", day:"Day 1 · Session 4", num:4,
+  title:"শক ও শক প্রতিরোধ",
+  subtitle:"রক্তসঞ্চালন ব্যর্থতাজনিত শক চেনা ও ব্যবস্থাপনা",
+  html:`
+  <div class="section-block">
+    <h3><span class="dot"></span>শক কী</h3>
+    <p>শরীরের গুরুত্বপূর্ণ অঙ্গে পর্যাপ্ত রক্ত ও অক্সিজেন সরবরাহ ব্যাহত হলে যে জীবনসংশয়ী অবস্থা তৈরি হয়, তাকে শক বলে। এটি তীব্র রক্তক্ষরণ, পোড়া, তীব্র ব্যথা, অ্যালার্জি বা তীব্র সংক্রমণের কারণে হতে পারে।</p>
+  </div>
+
+  <div class="section-block">
+    <h3><span class="dot"></span>লক্ষণ</h3>
+    <ul>
+      <li>ত্বক ফ্যাকাশে, ঠান্ডা ও চটচটে ঘাম</li>
+      <li>দ্রুত ও দুর্বল নাড়ি, দ্রুত অগভীর শ্বাস</li>
+      <li>অস্থিরতা, বিভ্রান্তি বা দুর্বলতা অনুভব</li>
+      <li>তৃষ্ণা লাগা, ধীরে ধীরে অজ্ঞান হয়ে যাওয়া</li>
+    </ul>
+  </div>
+
+  <div class="section-block">
+    <h3><span class="dot"></span>ব্যবস্থাপনা</h3>
+    <ol>
+      <li>কারণ চিহ্নিত করে তা নিয়ন্ত্রণ করুন (যেমন রক্তক্ষরণ বন্ধ করা)</li>
+      <li>আক্রান্তকে শুইয়ে দিন, পা ২৫-৩০ সেমি উঁচু করুন (মেরুদণ্ড/পায়ে আঘাত না থাকলে)</li>
+      <li>শরীর গরম রাখতে কম্বল বা কাপড় দিয়ে ঢেকে দিন</li>
+      <li>মুখে কিছু খেতে বা পান করতে দেবেন না</li>
+      <li>শান্ত রাখুন, আশ্বস্ত করুন, ক্রমাগত শ্বাস ও সাড়া পর্যবেক্ষণ করুন</li>
+      <li>দ্রুত জরুরি চিকিৎসা সেবায় পাঠান</li>
+    </ol>
+  </div>
+
+  <div class="do-dont">
+    <div class="do-box"><h4>✓ করণীয়</h4><ul>
+      <li>মূল কারণ (রক্তক্ষরণ/ব্যথা) আগে নিয়ন্ত্রণ করুন</li>
+      <li>শরীরের তাপ ধরে রাখুন</li>
+      <li>প্রতি কয়েক মিনিটে অবস্থা পর্যবেক্ষণ করুন</li>
+    </ul></div>
+    <div class="dont-box"><h4>✗ বর্জনীয়</h4><ul>
+      <li>মাথা আঘাত থাকলে পা উঁচু করবেন না</li>
+      <li>মুখে পানি/খাবার দেবেন না</li>
+      <li>একা ফেলে রাখবেন না</li>
+    </ul></div>
+  </div>
+
+  <div class="example-card">
+    <span class="ex-label">বাস্তব উদাহরণ</span>
+    সড়ক দুর্ঘটনায় আহত ব্যক্তি ফ্যাকাশে, ঘামছে, নাড়ি দ্রুত। রক্তক্ষরণ বন্ধ করার পর তাঁকে শুইয়ে পা সামান্য উঁচু করে কম্বল দিয়ে ঢেকে দিন এবং সাহস দিন — এভাবেই শক ব্যবস্থাপনা করবেন।
+  </div>
+
+  <div class="trainer-note">
+    <p><strong>কীভাবে শেখাবেন:</strong> শকের লক্ষণগুলো মনে রাখা কঠিন হতে পারে — একে "শরীর জরুরি অবস্থায় চলে যাওয়া" হিসেবে গল্পের মতো বর্ণনা করুন।</p>
+    <ul>
+      <li>একজন প্রশিক্ষণার্থীকে শকের লক্ষণ অভিনয় করে দেখাতে বলুন, বাকিরা লক্ষণ চিহ্নিত করুক</li>
+      <li>পা উঁচু করার সঠিক অবস্থান হাতেকলমে দেখান</li>
+    </ul>
+  </div>
+
+  <div class="mnemonic"><span class="m-icon">🧠</span> মনে রাখুন: <b>ফ্যাকাশে + ঠান্ডা + ঘাম + দ্রুত নাড়ি = শক</b> — কারণ বন্ধ করুন, শুইয়ে দিন, পা উঁচু করুন, গরম রাখুন</div>
+  `
+},
+{
+  id:"aid-5", part:"aid", day:"Day 1 · Session 5", num:5,
+  title:"রক্তক্ষরণ ও এর ব্যবস্থাপনা",
+  subtitle:"বাহ্যিক রক্তক্ষরণ নিয়ন্ত্রণের কৌশল",
+  html:`
+  <div class="section-block">
+    <h3><span class="dot"></span>রক্তক্ষরণের ধরন</h3>
+    <ul>
+      <li><strong>ধমনী রক্তক্ষরণ:</strong> উজ্জ্বল লাল রক্ত, স্পন্দনের সাথে ছিটকে বের হয় — সবচেয়ে বিপজ্জনক</li>
+      <li><strong>শিরার রক্তক্ষরণ:</strong> গাঢ় লাল রক্ত, ধারাবাহিকভাবে প্রবাহিত হয়</li>
+      <li><strong>কৈশিক রক্তক্ষরণ:</strong> ধীরে চুইয়ে পড়ে, সাধারণত কম গুরুতর</li>
+    </ul>
+  </div>
+
+  <div class="section-block">
+    <h3><span class="dot"></span>ধাপে ধাপে করণীয়</h3>
+    <ol>
+      <li>সম্ভব হলে গ্লাভস পরুন বা পরিষ্কার কাপড়ের ব্যারিয়ার ব্যবহার করুন</li>
+      <li>ক্ষতস্থানে পরিষ্কার কাপড়/গজ দিয়ে <strong>সরাসরি ও দৃঢ় চাপ</strong> দিন</li>
+      <li>সম্ভব হলে ক্ষতস্থান হৃদয়ের স্তরের চেয়ে উঁচুতে তুলুন</li>
+      <li>রক্ত ভিজে গেলে পুরনো কাপড় না সরিয়ে তার উপর নতুন কাপড় যোগ করুন</li>
+      <li>রক্তক্ষরণ বন্ধ না হলে ও প্রশিক্ষণ থাকলে তীব্র জীবন-হুমকিস্বরূপ ক্ষেত্রে টর্নিকেট ব্যবহার বিবেচনা করুন — ক্ষতস্থানের ৫-৭ সেমি উপরে বেঁধে সময় নোট করুন</li>
+      <li>শকের লক্ষণ পর্যবেক্ষণ করুন এবং দ্রুত হাসপাতালে পাঠান</li>
+    </ol>
+  </div>
+
+  <div class="do-dont">
+    <div class="do-box"><h4>✓ করণীয়</h4><ul>
+      <li>প্রথমেই সরাসরি চাপ প্রয়োগ করুন</li>
+      <li>টর্নিকেট ব্যবহার করলে সময় লিখে রাখুন</li>
+      <li>ক্ষতস্থান যতটা সম্ভব স্থির রাখুন</li>
+    </ul></div>
+    <div class="dont-box"><h4>✗ বর্জনীয়</h4><ul>
+      <li>ক্ষতস্থানে গেঁথে থাকা বস্তু টেনে বের করবেন না</li>
+      <li>বারবার কাপড় সরিয়ে ক্ষত দেখবেন না</li>
+      <li>টর্নিকেট প্রশিক্ষণ ছাড়া ব্যবহার করবেন না</li>
+    </ul></div>
+  </div>
+
+  <div class="example-card">
+    <span class="ex-label">বাস্তব উদাহরণ</span>
+    ছুরিকাঘাতে হাতে গভীর ক্ষত, রক্ত ছিটকে বের হচ্ছে — এটি ধমনী রক্তক্ষরণের লক্ষণ। সাথে সাথে পরিষ্কার কাপড় দিয়ে দৃঢ় চাপ দিয়ে হাত উঁচু করে ধরুন এবং জরুরি সেবায় খবর দিন।
+  </div>
+
+  <div class="trainer-note">
+    <p><strong>কীভাবে শেখাবেন:</strong> রক্তক্ষরণের ধরন আলাদা করার জন্য ছবি বা ভিডিও দেখিয়ে দ্রুত শনাক্তকরণ অনুশীলন করান।</p>
+    <ul>
+      <li>ব্যান্ডেজ দিয়ে সরাসরি চাপ প্রয়োগের কৌশল জোড়ায় অনুশীলন করান</li>
+      <li>টর্নিকেট বাঁধার সঠিক অবস্থান ও সময় লেখার অভ্যাস গুরুত্ব দিয়ে বোঝান</li>
+    </ul>
+  </div>
+
+  <div class="mnemonic"><span class="m-icon">🧠</span> মনে রাখুন: <b>চাপ, উচ্চতা, কভার</b> — প্রথমে সরাসরি চাপ, তারপর উঁচু করুন, প্রয়োজনে নতুন কাপড় দিয়ে ঢেকে দিন</div>
+  `
+},
+{
+  id:"aid-6", part:"aid", day:"Day 2 · Session 6", num:6,
+  title:"ক্ষত ও ক্ষত ড্রেসিং",
+  subtitle:"বিভিন্ন ধরনের ক্ষত পরিষ্কার ও ব্যান্ডেজ করার পদ্ধতি",
+  html:`
+  <div class="section-block">
+    <h3><span class="dot"></span>ক্ষতের প্রকারভেদ</h3>
+    <ul>
+      <li><strong>ছেদ ক্ষত (Cut/Incision):</strong> ধারালো বস্তুর দ্বারা সোজা কাটা</li>
+      <li><strong>ঘর্ষণ ক্ষত (Abrasion):</strong> ত্বকের উপরিভাগ ছিলে যাওয়া</li>
+      <li><strong>ছিদ্র ক্ষত (Puncture):</strong> সুচালো বস্তু দিয়ে গভীর ছিদ্র</li>
+      <li><strong>ছেঁড়া ক্ষত (Laceration):</strong> অনিয়মিত কিনারাযুক্ত ছেঁড়া ক্ষত</li>
+    </ul>
+  </div>
+
+  <div class="section-block">
+    <h3><span class="dot"></span>ধাপে ধাপে ড্রেসিং পদ্ধতি</h3>
+    <ol>
+      <li>হাত ধুয়ে/গ্লাভস পরে শুরু করুন</li>
+      <li>রক্তক্ষরণ থাকলে আগে সরাসরি চাপ দিয়ে নিয়ন্ত্রণ করুন</li>
+      <li>পরিষ্কার পানি দিয়ে ক্ষতস্থান ধুয়ে ময়লা/জীবাণু দূর করুন — কেন্দ্র থেকে বাইরের দিকে মুছুন</li>
+      <li>জীবাণুমুক্ত গজ দিয়ে ক্ষতটি ঢেকে দিন</li>
+      <li>ব্যান্ডেজ দিয়ে সঠিক টানে বাঁধুন — খুব শক্ত নয় (রক্ত চলাচল বাধাগ্রস্ত হয় না তেমন), খুব ঢিলাও নয়</li>
+      <li>বাঁধার পর আঙুলের রং/তাপমাত্রা দেখে রক্ত চলাচল পরীক্ষা করুন</li>
+      <li>গভীর, বড়, বা নোংরা বস্তুর দ্বারা হওয়া ক্ষতের জন্য চিকিৎসকের কাছে পাঠান (টিটেনাসের ঝুঁকি বিবেচনায়)</li>
+    </ol>
+  </div>
+
+  <div class="do-dont">
+    <div class="do-box"><h4>✓ করণীয়</h4><ul>
+      <li>ক্ষত ধোয়ার সময় কেন্দ্র থেকে বাইরের দিকে মুছুন</li>
+      <li>ড্রেসিং নিয়মিত পরিবর্তন করুন যদি ভিজে/নোংরা হয়</li>
+      <li>ফোলা, লালচেভাব, পুঁজ দেখা দিলে চিকিৎসকের কাছে পাঠান</li>
+    </ul></div>
+    <div class="dont-box"><h4>✗ বর্জনীয়</h4><ul>
+      <li>গভীর ক্ষতে গেঁথে থাকা বস্তু বের করার চেষ্টা করবেন না</li>
+      <li>নোংরা হাতে ক্ষত স্পর্শ করবেন না</li>
+      <li>খুব শক্ত করে বেঁধে রক্ত চলাচল বন্ধ করবেন না</li>
+    </ul></div>
+  </div>
+
+  <div class="example-card">
+    <span class="ex-label">বাস্তব উদাহরণ</span>
+    টহল ডিউটিতে থাকা একজন সহকর্মীর হাঁটুতে পড়ে গিয়ে ঘর্ষণ ক্ষত হয়েছে, মাটির ময়লা লেগে আছে। পরিষ্কার পানি দিয়ে ময়লা ধুয়ে জীবাণুমুক্ত গজ দিয়ে ঢেকে হালকা ব্যান্ডেজ বেঁধে দিন।
+  </div>
+
+  <div class="trainer-note">
+    <p><strong>কীভাবে শেখাবেন:</strong> ব্যান্ডেজ বাঁধার হাতের কৌশল বারবার অনুশীলন ছাড়া রপ্ত হয় না।</p>
+    <ul>
+      <li>বিভিন্ন আকারের ব্যান্ডেজ/গজ এনে জোড়ায় হাতে-কলমে অনুশীলন করান</li>
+      <li>"খুব শক্ত না, খুব ঢিলা না" — বেঁধে আঙুলের রং দেখে বোঝানোর অভ্যাস করান</li>
+    </ul>
+  </div>
+
+  <div class="mnemonic"><span class="m-icon">🧠</span> মনে রাখুন: <b>ধোয়া → ঢাকা → বাঁধা → পরীক্ষা</b> — বাঁধার পর সবসময় রক্ত চলাচল পরীক্ষা করুন</div>
+  `
+},
+{
+  id:"aid-7", part:"aid", day:"Day 2 · Session 7", num:7,
+  title:"পোড়া ও এর ব্যবস্থাপনা",
+  subtitle:"পোড়ার মাত্রা অনুযায়ী প্রাথমিক চিকিৎসা",
+  html:`
+  <div class="section-block">
+    <h3><span class="dot"></span>পোড়ার মাত্রা (Degree)</h3>
+    <ul>
+      <li><strong>প্রথম মাত্রা:</strong> শুধু ত্বকের উপরিভাগ লাল, ব্যথা — যেমন রোদে পোড়া</li>
+      <li><strong>দ্বিতীয় মাত্রা:</strong> ফোসকা পড়ে, তীব্র ব্যথা, ত্বক লাল ও ভেজা দেখায়</li>
+      <li><strong>তৃতীয় মাত্রা:</strong> ত্বকের সব স্তর পুড়ে যায়, রং সাদা/কালচে, স্নায়ু ক্ষতিগ্রস্ত হওয়ায় ব্যথা কম অনুভূত হতে পারে — সবচেয়ে গুরুতর</li>
+    </ul>
+  </div>
+
+  <div class="section-block">
+    <h3><span class="dot"></span>ধাপে ধাপে করণীয়</h3>
+    <ol>
+      <li>প্রথমে তাপের উৎস থেকে আক্রান্তকে সরিয়ে আনুন (নিরাপত্তা নিশ্চিত করে)</li>
+      <li>পোড়া স্থান <strong>ঠান্ডা (গরম নয়) বহতা পানিতে ১০-২০ মিনিট</strong> ধরুন</li>
+      <li>পোড়া স্থানের আশপাশের গয়না/টাইট কাপড় খুলে ফেলুন (ফোলার আগে)</li>
+      <li>ফোসকা ফাটাবেন না; পরিষ্কার, লেগে না থাকা ড্রেসিং দিয়ে হালকাভাবে ঢেকে দিন</li>
+      <li>শকের লক্ষণ পর্যবেক্ষণ করুন; বড় বা তৃতীয় মাত্রার পোড়া হলে দ্রুত হাসপাতালে পাঠান</li>
+    </ol>
+  </div>
+
+  <div class="do-dont">
+    <div class="do-box"><h4>✓ করণীয়</h4><ul>
+      <li>অবিলম্বে ঠান্ডা পানি ব্যবহার করুন</li>
+      <li>পরিষ্কার, নন-স্টিক ড্রেসিং ব্যবহার করুন</li>
+      <li>বড় পোড়ায় দ্রুত চিকিৎসা সহায়তা নিন</li>
+    </ul></div>
+    <div class="dont-box"><h4>✗ বর্জনীয়</h4><ul>
+      <li>টুথপেস্ট, মাখন, তেল, বরফ লাগাবেন না</li>
+      <li>ফোসকা ফাটাবেন না</li>
+      <li>লেগে থাকা কাপড় জোর করে খুলবেন না</li>
+    </ul></div>
+  </div>
+
+  <div class="example-card">
+    <span class="ex-label">বাস্তব উদাহরণ</span>
+    রান্নাঘরে গরম তেল হাতে পড়ে ফোসকা পড়েছে (দ্বিতীয় মাত্রার পোড়া)। সাথে সাথে হাত ২০ মিনিট ঠান্ডা পানির নিচে ধরে রাখুন, তারপর পরিষ্কার গজ দিয়ে হালকাভাবে ঢেকে দিন — টুথপেস্ট বা তেল লাগাবেন না।
+  </div>
+
+  <div class="trainer-note">
+    <p><strong>কীভাবে শেখাবেন:</strong> মানুষ ভুল ঘরোয়া টোটকা (টুথপেস্ট, তেল) ব্যবহার করে অভ্যস্ত — এই ভুল ধারণা ভাঙা প্রশিক্ষণের মূল কাজ।</p>
+    <ul>
+      <li>"ঠান্ডা পানি, শুধু ঠান্ডা পানি" — এই বার্তা বারবার জোর দিয়ে পুনরাবৃত্তি করান</li>
+      <li>বিভিন্ন মাত্রার পোড়ার ছবি দেখিয়ে চেনার অনুশীলন করান</li>
+    </ul>
+  </div>
+
+  <div class="mnemonic"><span class="m-icon">🧠</span> মনে রাখুন: <b>ঠান্ডা পানি ২০ মিনিট, তেল-টুথপেস্ট কখনো নয়</b></div>
+  `
+},
+{
+  id:"aid-8", part:"aid", day:"Day 2 · Session 8", num:8,
+  title:"ফিট, মূর্ছা যাওয়া ও অজ্ঞানতা",
+  subtitle:"খিঁচুনি, ফেইন্টিং ও চেতনাহীনতায় করণীয়",
+  html:`
+  <div class="section-block">
+    <h3><span class="dot"></span>মূর্ছা যাওয়া (Fainting)</h3>
+    <p>মস্তিষ্কে সাময়িক রক্তপ্রবাহ কমে গেলে অল্প সময়ের জন্য চেতনা হারানোকে ফেইন্টিং বলে। সাধারণত ভয়, ব্যথা, দীর্ঘক্ষণ দাঁড়িয়ে থাকা বা গরমের কারণে হয়।</p>
+    <p><strong>করণীয়:</strong> ব্যক্তিকে শুইয়ে পা উঁচু করুন, তাজা বাতাস দিন, টাইট কাপড় ঢিলা করুন। জ্ঞান ফিরলে ধীরে ধীরে বসতে দিন, তাড়াহুড়ো করে দাঁড় করাবেন না।</p>
+  </div>
+
+  <div class="section-block">
+    <h3><span class="dot"></span>খিঁচুনি/ফিট (Seizure)</h3>
+    <p><strong>করণীয়:</strong></p>
+    <ol>
+      <li>আক্রান্তের আশপাশ থেকে বিপজ্জনক বস্তু সরিয়ে দিন</li>
+      <li>মাথার নিচে নরম কিছু (কাপড়/বালিশ) দিন</li>
+      <li>খিঁচুনি চলাকালীন শরীর চেপে ধরবেন না বা নড়াচড়া থামানোর চেষ্টা করবেন না</li>
+      <li>খিঁচুনি শেষ হলে পাশ ফিরিয়ে শোয়ান (recovery position) যাতে শ্বাসনালী পরিষ্কার থাকে</li>
+      <li>সময় লক্ষ করুন — ৫ মিনিটের বেশি স্থায়ী হলে বা বারবার হলে জরুরি সেবায় খবর দিন</li>
+    </ol>
+  </div>
+
+  <div class="section-block">
+    <h3><span class="dot"></span>অজ্ঞানতা (Unconsciousness)</h3>
+    <p>DRABC অনুসরণ করুন — সাড়া না দিলে শ্বাসনালী ও শ্বাস পরীক্ষা করুন। শ্বাস স্বাভাবিক থাকলে recovery position-এ রাখুন। শ্বাস না থাকলে CPR শুরু করুন।</p>
+  </div>
+
+  <div class="do-dont">
+    <div class="do-box"><h4>✓ করণীয়</h4><ul>
+      <li>খিঁচুনিতে সময় গুনুন ও নিরাপদ পরিবেশ তৈরি করুন</li>
+      <li>ফেইন্টিং-এ পা উঁচু করে শুইয়ে দিন</li>
+      <li>অজ্ঞান ব্যক্তির শ্বাস স্বাভাবিক থাকলে recovery position দিন</li>
+    </ul></div>
+    <div class="dont-box"><h4>✗ বর্জনীয়</h4><ul>
+      <li>খিঁচুনির সময় মুখে কিছু (চামচ/কাপড়) ঢোকাবেন না</li>
+      <li>শরীর জোর করে চেপে ধরবেন না</li>
+      <li>অজ্ঞান ব্যক্তির মুখে পানি/খাবার দেবেন না</li>
+    </ul></div>
+  </div>
+
+  <div class="example-card">
+    <span class="ex-label">বাস্তব উদাহরণ</span>
+    গরমের রোদে দীর্ঘক্ষণ ডিউটি করার পর একজন সহকর্মী হঠাৎ মাথা ঘুরে পড়ে যান। তাঁকে শুইয়ে পা উঁচু করুন, টাই/কলার ঢিলা করুন — কয়েক মিনিটেই জ্ঞান ফিরবে।
+  </div>
+
+  <div class="trainer-note">
+    <p><strong>কীভাবে শেখাবেন:</strong> খিঁচুনির সময় "চেপে ধরা" একটি সাধারণ ভুল প্রবণতা — এটি স্পষ্টভাবে ভুল প্রমাণ করে বোঝান কেন এটি ক্ষতিকর (হাড় ভাঙার ঝুঁকি)।</p>
+    <ul>
+      <li>Recovery position হাতেকলমে সবাইকে দিয়ে অনুশীলন করান</li>
+      <li>ফেইন্টিং ও খিঁচুনির পার্থক্য টেবিল আকারে বোর্ডে লিখে তুলনা করান</li>
+    </ul>
+  </div>
+
+  <div class="mnemonic"><span class="m-icon">🧠</span> মনে রাখুন: <b>খিঁচুনিতে — জায়গা খালি করুন, ধরে রাখবেন না, সময় গুনুন, পরে পাশ ফেরান</b></div>
+  `
+},
+{
+  id:"aid-9", part:"aid", day:"Day 2 · Session 9", num:9,
+  title:"হাড় ভাঙা ও অচলীকরণ (Fracture & Immobilization)",
+  subtitle:"হাড়ভাঙা, মচকানো ও স্প্রেইনের প্রাথমিক ব্যবস্থাপনা",
+  html:`
+  <div class="section-block">
+    <h3><span class="dot"></span>প্রকারভেদ</h3>
+    <ul>
+      <li><strong>ফ্র্যাকচার:</strong> হাড় ভাঙা — সরল (ত্বকের নিচে) বা যৌগিক (হাড় ত্বক ভেদ করে বের হওয়া)</li>
+      <li><strong>স্প্রেইন:</strong> লিগামেন্ট (হাড়ের সংযোগকারী টিস্যু) টান খাওয়া/ছেঁড়া</li>
+      <li><strong>স্ট্রেইন:</strong> মাংসপেশি বা টেন্ডন টান খাওয়া</li>
+    </ul>
+  </div>
+
+  <div class="section-block">
+    <h3><span class="dot"></span>লক্ষণ</h3>
+    <ul>
+      <li>তীব্র ব্যথা, ফোলা, বিকৃত আকৃতি</li>
+      <li>নড়াচড়ায় অক্ষমতা, নড়াচড়ায় শব্দ (ক্র্যাক)</li>
+      <li>যৌগিক ফ্র্যাকচারে হাড় দৃশ্যমান হতে পারে</li>
+    </ul>
+  </div>
+
+  <div class="section-block">
+    <h3><span class="dot"></span>ধাপে ধাপে করণীয় (RICE + Splinting)</h3>
+    <ol>
+      <li>আক্রান্ত অংশ নড়াচড়া বন্ধ রাখুন — যতটুকু পাওয়া গেছে সেই অবস্থাতেই স্থির রাখুন</li>
+      <li><strong>স্প্লিন্ট</strong> (শক্ত বোর্ড/কাঠ/মোটা কাগজ) দিয়ে আক্রান্ত অংশের উপর-নিচের জয়েন্ট সহ অচল করুন</li>
+      <li>যৌগিক ফ্র্যাকচারে বের হওয়া হাড় ভেতরে ঢোকানোর চেষ্টা করবেন না — শুধু পরিষ্কার কাপড় দিয়ে হালকাভাবে ঢেকে দিন</li>
+      <li>মচকানো/স্ট্রেইনের জন্য <strong>RICE</strong> পদ্ধতি: Rest (বিশ্রাম), Ice (বরফ সেঁক ২০ মিনিট), Compression (হালকা চাপ ব্যান্ডেজ), Elevation (উঁচু করে রাখা)</li>
+      <li>শকের লক্ষণ পর্যবেক্ষণ করুন এবং দ্রুত হাসপাতালে পাঠান</li>
+    </ol>
+  </div>
+
+  <div class="do-dont">
+    <div class="do-box"><h4>✓ করণীয়</h4><ul>
+      <li>জয়েন্টের উপর ও নিচ উভয় দিক অচল রাখুন</li>
+      <li>স্প্লিন্ট বাঁধার পর রক্ত চলাচল পরীক্ষা করুন</li>
+      <li>প্রয়োজনে ঠেকা দিয়ে সাহায্য করুন</li>
+    </ul></div>
+    <div class="dont-box"><h4>✗ বর্জনীয়</h4><ul>
+      <li>ভাঙা হাড় সোজা করার চেষ্টা করবেন না</li>
+      <li>বের হওয়া হাড় ঠেলে ভেতরে ঢোকাবেন না</li>
+      <li>অতিরিক্ত শক্ত করে বেঁধে রক্ত চলাচল বন্ধ করবেন না</li>
+    </ul></div>
+  </div>
+
+  <div class="example-card">
+    <span class="ex-label">বাস্তব উদাহরণ</span>
+    সিঁড়ি থেকে পড়ে গিয়ে পায়ের গোড়ালি ফুলে গেছে, নড়াচড়া করতে পারছেন না — এটি সম্ভবত স্প্রেইন বা ফ্র্যাকচার। নিশ্চিত না হলে ফ্র্যাকচার ধরে নিয়ে স্প্লিন্ট দিয়ে অচল করে হাসপাতালে পাঠান।
+  </div>
+
+  <div class="trainer-note">
+    <p><strong>কীভাবে শেখাবেন:</strong> স্প্লিন্টিং একটি হ্যান্ডস-অন স্কিল — কাঠের টুকরা, খবরের কাগজ বা ছাতা দিয়ে বাস্তব উপকরণ ছাড়াই কীভাবে অস্থায়ী স্প্লিন্ট বানানো যায় তা দেখান।</p>
+    <ul>
+      <li>জোড়ায় ভাগ করে হাত/পায়ে স্প্লিন্ট বাঁধার অনুশীলন করান</li>
+      <li>"সন্দেহ হলে ফ্র্যাকচার ধরে নাও" — এই নীতি জোর দিয়ে শেখান</li>
+    </ul>
+  </div>
+
+  <div class="mnemonic"><span class="m-icon">🧠</span> মনে রাখুন: <b>RICE</b> = Rest, Ice, Compression, Elevation — মচকানোর জন্য; ফ্র্যাকচারে সবসময় স্প্লিন্ট দিয়ে অচল করুন</div>
+  `
+},
+{
+  id:"aid-10", part:"aid", day:"Day 2 · Session 10", num:10,
+  title:"বিষক্রিয়া (Poisoning)",
+  subtitle:"গৃহীত, শ্বাসে নেওয়া বা ত্বকে লাগা বিষের প্রাথমিক ব্যবস্থাপনা",
+  html:`
+  <div class="section-block">
+    <h3><span class="dot"></span>বিষক্রিয়ার প্রকারভেদ</h3>
+    <ul>
+      <li><strong>মুখে গ্রহণ:</strong> ওষুধ, রাসায়নিক, বিষাক্ত খাবার</li>
+      <li><strong>শ্বাসে গ্রহণ:</strong> গ্যাস, ধোঁয়া, রাসায়নিক বাষ্প</li>
+      <li><strong>ত্বকে/চোখে সংস্পর্শ:</strong> রাসায়নিক পদার্থ</li>
+      <li><strong>ইনজেকশন:</strong> কীটপতঙ্গ বা সাপের কামড় (পরবর্তী সেশনে বিস্তারিত)</li>
+    </ul>
+  </div>
+
+  <div class="section-block">
+    <h3><span class="dot"></span>ধাপে ধাপে করণীয়</h3>
+    <ol>
+      <li>নিরাপত্তা যাচাই করুন — বিশেষত শ্বাসে নেওয়া বিষের ক্ষেত্রে আগে নিজে নিরাপদ স্থানে সরে আসুন</li>
+      <li>কী ধরনের বিষ, কতটুকু ও কখন গ্রহণ করা হয়েছে তা জানার চেষ্টা করুন (প্যাকেট/বোতল সংরক্ষণ করুন)</li>
+      <li>মুখে গ্রহণ করা হলে বমি করানোর চেষ্টা করবেন না, যদি না চিকিৎসক নির্দেশ দেন</li>
+      <li>ত্বকে/চোখে লাগলে প্রচুর পরিষ্কার পানি দিয়ে অন্তত ১৫-২০ মিনিট ধুয়ে দিন</li>
+      <li>শ্বাসে নেওয়া হলে দ্রুত খোলা বাতাসে নিয়ে আসুন</li>
+      <li>DRABC অনুসরণ করে সাড়া, শ্বাস পর্যবেক্ষণ করুন</li>
+      <li>দ্রুত জরুরি সেবায় খবর দিন এবং বিষের প্যাকেট/নমুনা সাথে নিয়ে যান</li>
+    </ol>
+  </div>
+
+  <div class="do-dont">
+    <div class="do-box"><h4>✓ করণীয়</h4><ul>
+      <li>বিষের ধরন শনাক্তের প্রমাণ সংরক্ষণ করুন</li>
+      <li>ত্বক/চোখে লাগলে দীর্ঘ সময় পানি দিয়ে ধুয়ে দিন</li>
+      <li>দ্রুত পেশাদার সাহায্য নিন</li>
+    </ul></div>
+    <div class="dont-box"><h4>✗ বর্জনীয়</h4><ul>
+      <li>স্বতঃপ্রণোদিতভাবে বমি করানোর চেষ্টা করবেন না</li>
+      <li>দুধ বা অন্য কিছু নিজে থেকে খাওয়াবেন না (নির্দেশনা ছাড়া)</li>
+      <li>শ্বাসে নেওয়া বিষের এলাকায় নিজে অরক্ষিত অবস্থায় প্রবেশ করবেন না</li>
+    </ul></div>
+  </div>
+
+  <div class="example-card">
+    <span class="ex-label">বাস্তব উদাহরণ</span>
+    অভিযানের সময় একটি সন্দেহজনক রাসায়নিক পদার্থ কারো চোখে ছিটকে পড়েছে। সাথে সাথে চোখ খোলা রেখে ২০ মিনিট প্রবাহিত পরিষ্কার পানি দিয়ে ধুয়ে দিন এবং চিকিৎসকের কাছে পাঠান।
+  </div>
+
+  <div class="trainer-note">
+    <p><strong>কীভাবে শেখাবেন:</strong> সবচেয়ে গুরুত্বপূর্ণ বার্তা হলো "বমি করাবেন না, নিজে চিকিৎসা দেওয়ার চেষ্টা করবেন না — প্রমাণ সংগ্রহ করুন ও দ্রুত পাঠান"।</p>
+    <ul>
+      <li>বিভিন্ন পরিস্থিতির কার্ড (কীটনাশক, গ্যাস, ওষুধ) বিতরণ করে দলে আলোচনা করিয়ে সঠিক পদক্ষেপ ঠিক করান</li>
+    </ul>
+  </div>
+
+  <div class="mnemonic"><span class="m-icon">🧠</span> মনে রাখুন: <b>শনাক্ত করুন, সরান, ধুয়ে দিন, পাঠান</b> — কখনো নিজে থেকে বমি করাবেন না</div>
+  `
+},
+{
+  id:"aid-11", part:"aid", day:"Day 3 · Session 11", num:11,
+  title:"কামড় (পোকামাকড় ও প্রাণী)",
+  subtitle:"সাপ, কুকুর ও পোকামাকড়ের কামড়ে প্রাথমিক চিকিৎসা",
+  html:`
+  <div class="section-block">
+    <h3><span class="dot"></span>সাপের কামড়</h3>
+    <ol>
+      <li>আক্রান্তকে শান্ত রাখুন ও নড়াচড়া কমাতে বলুন — নড়াচড়া বিষ দ্রুত ছড়াতে সাহায্য করে</li>
+      <li>কামড়ের স্থান হৃদয়ের স্তরের নিচে বা সমান রাখুন</li>
+      <li>কামড়ের স্থানের আশপাশের টাইট গয়না/কাপড় খুলে ফেলুন (ফোলার আগে)</li>
+      <li>কামড়ের স্থান পরিষ্কার কাপড় দিয়ে হালকাভাবে ঢেকে দিন</li>
+      <li>দ্রুত হাসপাতালে পাঠান — সম্ভব হলে সাপের রং/আকৃতি মনে রাখুন (ধরার চেষ্টা করবেন না)</li>
+    </ol>
+    <div class="dont-box" style="margin-top:10px;"><h4>✗ কখনো করবেন না</h4><ul>
+      <li>কামড়ের স্থান কেটে বিষ চোষা</li>
+      <li>বরফ লাগানো বা টর্নিকেট বাঁধা</li>
+      <li>বৈদ্যুতিক শক দেওয়া বা অ্যালকোহল পান করানো</li>
+    </ul></div>
+  </div>
+
+  <div class="section-block">
+    <h3><span class="dot"></span>কুকুর/প্রাণীর কামড়</h3>
+    <ol>
+      <li>ক্ষতস্থান সাবান ও প্রচুর পানি দিয়ে অন্তত ১৫ মিনিট ধুয়ে দিন</li>
+      <li>জীবাণুনাশক লাগিয়ে পরিষ্কার ড্রেসিং দিন</li>
+      <li>জলাতঙ্কের ঝুঁকি থাকায় দ্রুত চিকিৎসকের কাছে পাঠান (ভ্যাকসিনের জন্য)</li>
+    </ol>
+  </div>
+
+  <div class="section-block">
+    <h3><span class="dot"></span>পোকামাকড়/বিছার কামড়</h3>
+    <ol>
+      <li>হুল থাকলে সাবধানে চাঁছার মতো করে সরান (চিমটি দিয়ে চাপ দিয়ে চেপে বের করবেন না)</li>
+      <li>ঠান্ডা সেঁক দিন, ব্যথানাশক প্রয়োজনে ব্যবহার করুন</li>
+      <li>অ্যালার্জির তীব্র প্রতিক্রিয়া (শ্বাসকষ্ট, মুখ ফোলা) দেখা দিলে জরুরিভাবে হাসপাতালে পাঠান</li>
+    </ol>
+  </div>
+
+  <div class="example-card">
+    <span class="ex-label">বাস্তব উদাহরণ</span>
+    টহলের সময় একজন সহকর্মীকে সাপে কামড় দিয়েছে। তাঁকে শান্ত রাখুন, নড়াচড়া করতে দেবেন না, কামড়ের স্থান হৃদয়ের নিচে রেখে পরিষ্কার কাপড়ে ঢেকে দ্রুত হাসপাতালে নিয়ে যান — বিষ চোষা বা কাটার চেষ্টা করবেন না।
+  </div>
+
+  <div class="trainer-note">
+    <p><strong>কীভাবে শেখাবেন:</strong> সাপে কামড়ের ক্ষেত্রে প্রচলিত ভুল ধারণা (বিষ চোষা, টর্নিকেট) অনেক গভীরে প্রোথিত — এগুলো কেন ক্ষতিকর তা যুক্তি দিয়ে ব্যাখ্যা করুন।</p>
+    <ul>
+      <li>"নড়বেন না, দৌড়াবেন না" বার্তাটি জোরালোভাবে পুনরাবৃত্তি করান</li>
+      <li>স্থানীয় ভাষায় প্রচলিত ভুল চিকিৎসা পদ্ধতি নিয়ে দলগত আলোচনা করান</li>
+    </ul>
+  </div>
+
+  <div class="mnemonic"><span class="m-icon">🧠</span> মনে রাখুন: <b>শান্ত রাখুন, নিচে রাখুন, ঢেকে রাখুন, দ্রুত পাঠান</b> — সাপে কামড়ে কখনো কাটবেন না বা চুষবেন না</div>
+  `
+},
+{
+  id:"aid-12", part:"aid", day:"Day 3 · Session 12", num:12,
+  title:"আহত ব্যক্তি পরিবহন (Transportation of Casualty)",
+  subtitle:"নিরাপদে আহত ব্যক্তিকে স্থানান্তরের পদ্ধতি",
+  html:`
+  <div class="section-block">
+    <h3><span class="dot"></span>মূলনীতি</h3>
+    <p>আহত ব্যক্তিকে সরানোর সিদ্ধান্ত নেওয়ার আগে বিবেচনা করুন — জায়গাটি কি আসলেই বিপজ্জনক? স্থানান্তর কি সত্যিই জরুরি? ভুল পদ্ধতিতে সরালে মেরুদণ্ড/হাড়ের আঘাত আরও গুরুতর হতে পারে।</p>
+  </div>
+
+  <div class="section-block">
+    <h3><span class="dot"></span>কখন সরাবেন</h3>
+    <ul>
+      <li>তাৎক্ষণিক বিপদ থাকলে (আগুন, গ্যাস, পড়ে যাওয়ার ঝুঁকি)</li>
+      <li>CPR দেওয়ার জন্য সমতল জায়গার প্রয়োজন হলে</li>
+      <li>অন্যথায় — সন্দেহজনক মেরুদণ্ড/ঘাড়ের আঘাতে বিশেষজ্ঞ সাহায্য না আসা পর্যন্ত সরাবেন না</li>
+    </ul>
+  </div>
+
+  <div class="section-block">
+    <h3><span class="dot"></span>সাধারণ পরিবহন কৌশল</h3>
+    <ul>
+      <li><strong>একক-বাহক ড্র্যাগ:</strong> জরুরি অবস্থায় কাপড়/কম্বল দিয়ে টেনে সরানো (কেবল তাৎক্ষণিক বিপদে)</li>
+      <li><strong>সাপোর্টেড ওয়াক:</strong> সচেতন, হালকা আহত ব্যক্তির কাঁধে হাত দিয়ে সহায়তা করে হাঁটানো</li>
+      <li><strong>দুই-ব্যক্তি ক্যারি:</strong> একজন বগলের নিচে, একজন হাঁটুর নিচে ধরে তোলা</li>
+      <li><strong>স্ট্রেচার/চেয়ার ক্যারি:</strong> দূরত্ব বেশি হলে বা আঘাত গুরুতর হলে ব্যবহার</li>
+    </ul>
+  </div>
+
+  <div class="do-dont">
+    <div class="do-box"><h4>✓ করণীয়</h4><ul>
+      <li>মেরুদণ্ড সোজা রেখে সরান</li>
+      <li>একাধিক ব্যক্তি মিলে সমন্বিতভাবে তুলুন</li>
+      <li>সরানোর আগে গন্তব্য ও পথ পরিষ্কার করে নিন</li>
+    </ul></div>
+    <div class="dont-box"><h4>✗ বর্জনীয়</h4><ul>
+      <li>একা ভারী আহত ব্যক্তিকে তোলার চেষ্টা করবেন না</li>
+      <li>মেরুদণ্ড আহত সন্দেহ হলে ঘাড় বাঁকাবেন না</li>
+      <li>প্রয়োজন না হলে সরাবেন না</li>
+    </ul></div>
+  </div>
+
+  <div class="example-card">
+    <span class="ex-label">বাস্তব উদাহরণ</span>
+    একটি ভবনে আগুন লাগার সময় একজন আহত ব্যক্তিকে দ্রুত সরাতে হবে কিন্তু স্ট্রেচার নেই। এক্ষেত্রে দুই ব্যক্তি মিলে "দুই-ব্যক্তি ক্যারি" পদ্ধতিতে দ্রুত নিরাপদ স্থানে সরিয়ে নিন।
+  </div>
+
+  <div class="trainer-note">
+    <p><strong>কীভাবে শেখাবেন:</strong> এটি সম্পূর্ণ শারীরিক দক্ষতা — বাস্তবে জোড়া/দলে ভাগ করে হাতেকলমে প্রতিটি ক্যারি কৌশল অনুশীলন করানো আবশ্যক।</p>
+    <ul>
+      <li>খোলা মাঠে বা বড় ঘরে ম্যাট বিছিয়ে অনুশীলন করান</li>
+      <li>"সরানো মানেই ভালো নয়" — এই নীতিটি জোর দিয়ে শেখান, কারণ পুলিশ প্রশিক্ষণার্থীরা প্রায়ই দ্রুত সরাতে অভ্যস্ত</li>
+    </ul>
+  </div>
+
+  <div class="mnemonic"><span class="m-icon">🧠</span> মনে রাখুন: <b>প্রথমে জিজ্ঞাসা করুন — সরানো কি জরুরি?</b> জরুরি না হলে বিশেষজ্ঞ সাহায্যের অপেক্ষা করুন</div>
+  `
+},
+
+/* ---------------- PART B: TRAINING OF TRAINERS (Day 4-5) ---------------- */
+{
+  id:"tot-overview", part:"tot", day:"সূচি", num:"সূ",
+  title:"ট্রেনিং মেথডোলজি — ২ দিনের কার্যক্রম সূচি",
+  subtitle:"Day 4 ও Day 5-এ কোন দিনে কী শেখানো হবে, তার ধারাবাহিক সূচি",
+  html:`
+  <div class="section-block tot">
+    <h3><span class="dot"></span>Day 4 — ট্রেনিং পরিকল্পনা ও পদ্ধতি</h3>
+    <p>চতুর্থ দিনে আগের তিন দিনের রিভিউয়ের পর প্রশিক্ষক হিসেবে প্রশিক্ষণ পরিচালনার তত্ত্ব ও কৌশল শেখানো হয়:</p>
+    <ul>
+      <li><strong>Session 4.1 — Training ও Training Cycle-এর ধারণা</strong></li>
+      <li><strong>Session 4.2 — কার্যকর প্রশিক্ষণের বিবেচ্য বিষয়:</strong> প্রশাসনিক প্রক্রিয়া, অংশগ্রহণকারী নির্বাচন, ভেন্যু, ফ্যাসিলিটেটর ও আয়োজক</li>
+      <li><strong>Session 4.3 — প্রশিক্ষণের প্রস্তুতি:</strong> ফোর স্টেপ মেথড, ট্রেনিং প্ল্যান (মডিউল, সময়সূচি, লেসন প্ল্যানসহ)</li>
+      <li><strong>Session 4.4 — প্রশিক্ষণ পদ্ধতি ও শেখার উপকরণ:</strong> বিভিন্ন ট্রেনিং মেথড ও লার্নিং এইড</li>
+      <li><strong>Session 4.5 — অঙ্গভঙ্গি ও ভঙ্গিমা (Gesture & Posture)</strong> — প্রশিক্ষণ পরিচালনার সময় বজায় রাখার কৌশল</li>
+      <li><strong>Session 4.6 — প্রশিক্ষণ পর্যবেক্ষণ, মূল্যায়ন ও প্রতিবেদন (Monitoring, Evaluation & Reporting)</strong></li>
+    </ul>
+  </div>
+
+  <div class="section-block tot">
+    <h3><span class="dot"></span>Day 5 — চূড়ান্ত উপস্থাপনা ও সমাপনী</h3>
+    <p>পঞ্চম ও শেষ দিনে প্রতিটি অংশগ্রহণকারী নিজে প্রশিক্ষক হয়ে অনুশীলন করে দেখান:</p>
+    <ul>
+      <li><strong>Session 5.1 — আগের দিনের রিভিউ ও ফাইনাল প্রেজেন্টেশনের প্রস্তুতি</strong></li>
+      <li><strong>Final Presentation & Evaluation:</strong> প্রতিটি অংশগ্রহণকারী নিজের বাছাই করা বিষয়ের উপর একটি সেশন প্ল্যান জমা দিয়ে ৫ মিনিটের উপস্থাপনা করবেন</li>
+      <li><strong>সমাপনী অনুষ্ঠান</strong> — সার্টিফিকেট বিতরণসহ</li>
+    </ul>
+  </div>
+
+  <div class="trainer-note">
+    <p><strong>প্রশিক্ষকের জন্য নোট:</strong> প্রতিটি সেশনের বিস্তারিত পড়তে বাম পাশের তালিকা থেকে সংশ্লিষ্ট টপিকে ক্লিক করুন।</p>
+  </div>
+  `
+},
+{
+  id:"tot-1", part:"tot", day:"Day 4 · Session 4.1", num:1,
+  title:"ট্রেনিং ও ট্রেনিং সাইকেলের ধারণা",
+  subtitle:"একটি সফল প্রশিক্ষণের কাঠামো বোঝা",
+  html:`
+  <div class="section-block tot">
+    <h3><span class="dot"></span>ট্রেনিং কী</h3>
+    <p>ট্রেনিং হলো এমন একটি পরিকল্পিত প্রক্রিয়া, যার মাধ্যমে প্রশিক্ষণার্থীর জ্ঞান, দক্ষতা ও দৃষ্টিভঙ্গি (Knowledge, Skill, Attitude — KSA) পরিবর্তন বা উন্নত করা হয়, যাতে তারা নির্দিষ্ট কাজ আরও ভালোভাবে সম্পন্ন করতে পারেন।</p>
+  </div>
+
+  <div class="section-block tot">
+    <h3><span class="dot"></span>ট্রেনিং সাইকেলের ৪টি ধাপ</h3>
+    <ol>
+      <li><strong>প্রয়োজন নিরূপণ (Training Need Assessment - TNA):</strong> কী শেখানো দরকার, কাদের জন্য, কেন — এই প্রশ্নগুলোর উত্তর খোঁজা</li>
+      <li><strong>ডিজাইন (Design):</strong> উদ্দেশ্য নির্ধারণ, কারিকুলাম/মডিউল তৈরি, পদ্ধতি ও সময়সূচি ঠিক করা</li>
+      <li><strong>বাস্তবায়ন (Delivery):</strong> পরিকল্পনা অনুযায়ী প্রকৃত প্রশিক্ষণ পরিচালনা করা</li>
+      <li><strong>মূল্যায়ন (Evaluation):</strong> প্রশিক্ষণের কার্যকারিতা যাচাই ও ভবিষ্যৎ উন্নতির জন্য ফিডব্যাক সংগ্রহ</li>
+    </ol>
+    <p>এই চক্রটি বৃত্তাকার — মূল্যায়নের ফলাফল পরবর্তী প্রশিক্ষণের প্রয়োজন নিরূপণে ব্যবহৃত হয়।</p>
+  </div>
+
+  <div class="example-card">
+    <span class="ex-label">প্রয়োগ: ফার্স্ট এইড প্রশিক্ষণে</span>
+    ধরুন আপনি থানার নতুন কনস্টেবলদের ফার্স্ট এইড শেখাবেন। TNA ধাপে আপনি জানবেন তারা আগে কতটুকু জানেন; Design ধাপে ঠিক করবেন CPR ও Bleeding-এর উপর বেশি সময় দেবেন কারণ মাঠপর্যায়ে এগুলোর প্রয়োজন বেশি; Delivery-তে হাতেকলমে অনুশীলন রাখবেন; Evaluation-এ লিখিত ও ব্যবহারিক পরীক্ষা নেবেন।
+  </div>
+
+  <div class="trainer-note">
+    <p><strong>কীভাবে অনুশীলন করবেন (নিজের জন্য):</strong> এই ৫ দিনের ট্রেনিং শেষে আপনি যখন নিজে ফার্স্ট এইড শেখাবেন, তখন প্রথমেই কাগজে ৪টি ধাপ লিখে প্রতিটির জন্য একটি করে বাক্যে পরিকল্পনা করুন — এই অভ্যাস আপনাকে কাঠামোবদ্ধ প্রশিক্ষক হতে সাহায্য করবে।</p>
+  </div>
+
+  <div class="mnemonic"><span class="m-icon">🧠</span> মনে রাখুন: <b>নিরূপণ → ডিজাইন → বাস্তবায়ন → মূল্যায়ন</b> — এই ৪ ধাপ একটি চক্র, শেষ ধাপ থেকে আবার শুরু হয়</div>
+  `
+},
+{
+  id:"tot-2", part:"tot", day:"Day 4 · Session 4.2", num:2,
+  title:"কার্যকর ট্রেনিং এর বিবেচ্য বিষয়",
+  subtitle:"প্রশাসনিক প্রস্তুতি, অংশগ্রহণকারী নির্বাচন, ভেন্যু ও সহায়তাকারী",
+  html:`
+  <div class="section-block tot">
+    <h3><span class="dot"></span>প্রশাসনিক প্রস্তুতি</h3>
+    <ul>
+      <li>বাজেট, অনুমতি, সময়সূচি নিশ্চিতকরণ আগে থেকে সেরে রাখা</li>
+      <li>প্রয়োজনীয় উপকরণ (ম্যানিকিন, ব্যান্ডেজ, হ্যান্ডআউট) তালিকা করে আগে সংগ্রহ করা</li>
+      <li>সার্টিফিকেট, উপস্থিতি খাতা প্রস্তুত রাখা</li>
+    </ul>
+  </div>
+
+  <div class="section-block tot">
+    <h3><span class="dot"></span>অংশগ্রহণকারী নির্বাচন</h3>
+    <p>সঠিক প্রশিক্ষণার্থী নির্বাচন প্রশিক্ষণের সফলতা নির্ধারণ করে — তাদের পূর্ব অভিজ্ঞতা, দায়িত্বের ক্ষেত্র ও শেখার আগ্রহ বিবেচনা করুন। খুব বেশি ভিন্নধর্মী দল (একদম নতুন + অভিজ্ঞ একসাথে) হলে কনটেন্ট পর্যায় ঠিক করা কঠিন হয়।</p>
+  </div>
+
+  <div class="section-block tot">
+    <h3><span class="dot"></span>ভেন্যু</h3>
+    <ul>
+      <li>পর্যাপ্ত জায়গা — বিশেষত হ্যান্ডস-অন অনুশীলনের (CPR, ব্যান্ডেজিং, ক্যারি) জন্য মেঝেতে খালি জায়গা দরকার</li>
+      <li>আলো, বায়ু চলাচল, শব্দ নিয়ন্ত্রণ</li>
+      <li>প্রজেক্টর/হোয়াইটবোর্ডের ব্যবস্থা</li>
+    </ul>
+  </div>
+
+  <div class="section-block tot">
+    <h3><span class="dot"></span>সহায়তাকারী ও আয়োজক</h3>
+    <p>একাধিক ফ্যাসিলিটেটর থাকলে ভূমিকা বণ্টন স্পষ্ট থাকা জরুরি — কে কোন সেশন নেবে, কে সময় দেখবে, কে উপকরণ ব্যবস্থাপনা করবে।</p>
+  </div>
+
+  <div class="example-card">
+    <span class="ex-label">প্রয়োগ: ফার্স্ট এইড প্রশিক্ষণে</span>
+    CPR ও ব্যান্ডেজিং সেশনের আগে নিশ্চিত করুন পর্যাপ্ত ম্যানিকিন ও ব্যান্ডেজ আছে কিনা, এবং কক্ষে সবাই মেঝেতে বসে অনুশীলন করার মতো জায়গা আছে কিনা — এই প্রস্তুতি না থাকলে সেশনের গুণগত মান কমে যাবে।
+  </div>
+
+  <div class="trainer-note">
+    <p><strong>কীভাবে অনুশীলন করবেন:</strong> প্রতিটি প্রশিক্ষণের আগে একটি "প্রি-ট্রেনিং চেকলিস্ট" বানান — ভেন্যু, উপকরণ, অংশগ্রহণকারী তালিকা, সহায়তাকারীর ভূমিকা — এবং প্রশিক্ষণের ১ দিন আগে তা পুনরায় যাচাই করুন।</p>
+  </div>
+
+  <div class="mnemonic"><span class="m-icon">🧠</span> মনে রাখুন: <b>প্রশাসন, অংশগ্রহণকারী, ভেন্যু, সহায়তাকারী</b> — চারটির যেকোনো একটি দুর্বল হলে পুরো প্রশিক্ষণ ব্যাহত হতে পারে</div>
+  `
+},
+{
+  id:"tot-3", part:"tot", day:"Day 4 · Session 4.3", num:3,
+  title:"ট্রেনিং প্রস্তুতি — ফোর স্টেপ মেথড ও ট্রেনিং প্ল্যান",
+  subtitle:"শেখানোর সবচেয়ে প্রমাণিত ধাপে ধাপে পদ্ধতি এবং লেসন প্ল্যান তৈরি",
+  html:`
+  <div class="section-block tot">
+    <h3><span class="dot"></span>ফোর স্টেপ স্কিলস ট্রেনিং মেথড</h3>
+    <p>দক্ষতা-ভিত্তিক বিষয় (যেমন CPR, ব্যান্ডেজিং) শেখানোর সবচেয়ে কার্যকর ও দীর্ঘদিন ধরে প্রমাণিত পদ্ধতি এটি:</p>
+    <ol>
+      <li><strong>প্রস্তুত করা (Prepare):</strong> প্রশিক্ষণার্থীকে বলুন কী শিখবে, কেন গুরুত্বপূর্ণ, তাদের আগ্রহ তৈরি করুন</li>
+      <li><strong>প্রদর্শন ও ব্যাখ্যা (Demonstrate & Explain):</strong> নিজে ধীরে ধীরে করে দেখান, প্রতিটি ধাপ মুখে বলে বলে ব্যাখ্যা করুন</li>
+      <li><strong>অনুশীলনের সুযোগ (Practice):</strong> প্রশিক্ষণার্থীকে নিজে করতে দিন, ভুল হলে সংশোধন করুন, বারবার অনুশীলন করান</li>
+      <li><strong>ফলো-আপ (Follow-up):</strong> পরবর্তীতে পুনরায় পরীক্ষা করে দেখুন দক্ষতা ধরে রেখেছে কিনা, প্রশ্নের উত্তর দিন</li>
+    </ol>
+  </div>
+
+  <div class="section-block tot">
+    <h3><span class="dot"></span>ট্রেনিং প্ল্যান (মডিউল, শিডিউল, লেসন প্ল্যান)</h3>
+    <ul>
+      <li><strong>মডিউল:</strong> বড় বিষয়কে ছোট, যৌক্তিক অংশে ভাগ করা (যেমন এই কোর্সের ১২টি ফার্স্ট এইড সেশন)</li>
+      <li><strong>শিডিউল:</strong> প্রতিটি সেশনের সময় বরাদ্দ, বিরতি পরিকল্পনা</li>
+      <li><strong>লেসন প্ল্যান:</strong> প্রতিটি একক সেশনের বিস্তারিত পরিকল্পনা — উদ্দেশ্য, পদ্ধতি, উপকরণ, সময়, মূল্যায়ন পদ্ধতি</li>
+    </ul>
+  </div>
+
+  <div class="example-card">
+    <span class="ex-label">প্রয়োগ: CPR সেশনের লেসন প্ল্যান উদাহরণ</span>
+    <strong>উদ্দেশ্য:</strong> প্রশিক্ষণার্থী সঠিক অনুপাতে (৩০:২) CPR করতে পারবে।<br>
+    <strong>প্রস্তুত:</strong> "কেন প্রতি মিনিট গুরুত্বপূর্ণ" নিয়ে ২ মিনিটের গল্প বলুন।<br>
+    <strong>প্রদর্শন:</strong> ম্যানিকিনে ধীরে ধীরে করে দেখান, হাতের অবস্থান ব্যাখ্যা করুন।<br>
+    <strong>অনুশীলন:</strong> প্রতিজনকে ২ মিনিট করে অনুশীলন করান।<br>
+    <strong>ফলো-আপ:</strong> পরদিন সকালে পুনরায় দ্রুত পরীক্ষা করুন।
+  </div>
+
+  <div class="trainer-note">
+    <p><strong>কীভাবে অনুশীলন করবেন:</strong> এই ৫ দিনের প্রশিক্ষণ শেষে, আপনার নিজের ফার্স্ট এইড ট্রেনিং-এর প্রতিটি সেশনের জন্য এই ফোর্মেটে (উদ্দেশ্য/প্রস্তুত/প্রদর্শন/অনুশীলন/ফলো-আপ) একটি ছোট লেসন প্ল্যান লিখে ফেলুন — Day 5-এর ফাইনাল প্রেজেন্টেশনে এটিই আপনার কাজে লাগবে।</p>
+  </div>
+
+  <div class="mnemonic"><span class="m-icon">🧠</span> মনে রাখুন: <b>প্রস্তুত → প্রদর্শন → অনুশীলন → ফলো-আপ</b> — দক্ষতা শেখানোর সার্বজনীন সূত্র</div>
+  `
+},
+{
+  id:"tot-4", part:"tot", day:"Day 4 · Session 4.4", num:4,
+  title:"ট্রেনিং পদ্ধতি ও শিখন উপকরণ",
+  subtitle:"বিভিন্ন প্রশিক্ষণ পদ্ধতি এবং কখন কোনটি ব্যবহার করবেন",
+  html:`
+  <div class="section-block tot">
+    <h3><span class="dot"></span>দুই ধরনের পদ্ধতি</h3>
+    <p><strong>১. নির্দেশনামূলক পদ্ধতি (Instructional):</strong> লেকচার-ভিত্তিক, প্রশিক্ষক মূল তথ্যদাতা — দ্রুত অনেক তথ্য দেওয়ার জন্য উপযোগী কিন্তু একমুখী।</p>
+    <p><strong>২. দলগত অংশগ্রহণমূলক পদ্ধতি (Group Participation):</strong> আলোচনা, ওয়ার্কশপ, রোল-প্লে, কেস স্টাডি — প্রশিক্ষণার্থী সক্রিয়ভাবে জড়িত থাকে, শেখা বেশি স্থায়ী হয়।</p>
+    <p>সেরা প্রশিক্ষণে দুটি পদ্ধতিই মিশিয়ে ব্যবহার করা হয় — সংক্ষিপ্ত লেকচারের পর হাতেকলমে অনুশীলন।</p>
+  </div>
+
+  <div class="section-block tot">
+    <h3><span class="dot"></span>ফার্স্ট এইড শেখানোর জন্য কার্যকর পদ্ধতি</h3>
+    <ul>
+      <li><strong>ডেমোনস্ট্রেশন:</strong> ম্যানিকিনে CPR/ব্যান্ডেজিং দেখানো</li>
+      <li><strong>রোল-প্লে:</strong> একজন আক্রান্ত, একজন রেসপন্ডার সাজিয়ে বাস্তব দৃশ্য অনুশীলন</li>
+      <li><strong>কেস স্টাডি/সিনারিও:</strong> "যদি এমন হয়..." ধরনের পরিস্থিতি দিয়ে দলগত সিদ্ধান্ত নেওয়ানো</li>
+      <li><strong>প্রশ্নোত্তর/বাজ গ্রুপ:</strong> ছোট দলে আলোচনা করিয়ে উত্তর বের করানো</li>
+      <li><strong>হাতেকলমে অনুশীলন:</strong> প্রতিটি স্কিলের জন্য অবশ্যই প্রয়োজনীয়</li>
+    </ul>
+  </div>
+
+  <div class="section-block tot">
+    <h3><span class="dot"></span>শিখন উপকরণ (Learning Aids)</h3>
+    <ul>
+      <li>হোয়াইটবোর্ড/ফ্লিপচার্ট — মূল পয়েন্ট লিখে রাখা</li>
+      <li>ছবি/পোস্টার — লক্ষণ চেনানোর জন্য কার্যকর</li>
+      <li>ভিডিও — জটিল প্রক্রিয়া (CPR সিকোয়েন্স) দেখানোর জন্য উপযোগী</li>
+      <li>ম্যানিকিন, ব্যান্ডেজ, স্প্লিন্ট — হাতেকলমে অনুশীলনের বাস্তব উপকরণ</li>
+      <li>হ্যান্ডআউট — সেশনের পর রিভিশনের জন্য</li>
+    </ul>
+  </div>
+
+  <div class="example-card">
+    <span class="ex-label">প্রয়োগ</span>
+    Choking সেশনে শুধু লেকচার না দিয়ে: প্রথমে ২ মিনিট লক্ষণ ব্যাখ্যা করুন (নির্দেশনামূলক), তারপর জোড়ায় ভাগ করে হাতের অবস্থান অনুশীলন করান (অংশগ্রহণমূলক) — এই মিশ্রণ শেখাকে গভীর ও দীর্ঘস্থায়ী করে।
+  </div>
+
+  <div class="trainer-note">
+    <p><strong>কীভাবে অনুশীলন করবেন:</strong> প্রতিটি সেশন পরিকল্পনার সময় নিজেকে জিজ্ঞাসা করুন — "আমি কি শুধু বলছি, নাকি তাদের করতে দিচ্ছি?" দক্ষতা-ভিত্তিক প্রতিটি বিষয়ে (CPR, ব্যান্ডেজিং, স্প্লিন্টিং, ক্যারি) সবসময় হাতেকলমে অনুশীলনের সময় রাখুন।</p>
+  </div>
+
+  <div class="mnemonic"><span class="m-icon">🧠</span> মনে রাখুন: <b>বলা কম, দেখানো বেশি, করতে দেওয়া সবচেয়ে বেশি</b></div>
+  `
+},
+{
+  id:"tot-5", part:"tot", day:"Day 4 · Session 4.5", num:5,
+  title:"ট্রেনিং-এ অঙ্গভঙ্গি ও ভঙ্গিমা (Gesture & Posture)",
+  subtitle:"কার্যকর যোগাযোগ ও উপস্থাপনা দক্ষতা",
+  html:`
+  <div class="section-block tot">
+    <h3><span class="dot"></span>কেন গুরুত্বপূর্ণ</h3>
+    <p>যোগাযোগের একটি বড় অংশ শব্দের বাইরে — শারীরিক ভাষা, কণ্ঠস্বর ও উপস্থিতি দিয়ে তৈরি হয়। একজন প্রশিক্ষক যত ভালো বিষয়বস্তু জানুক না কেন, দুর্বল বডি ল্যাঙ্গুয়েজ থাকলে প্রশিক্ষণার্থীর মনোযোগ ও বিশ্বাস কমে যায়।</p>
+  </div>
+
+  <div class="section-block tot">
+    <h3><span class="dot"></span>করণীয় অঙ্গভঙ্গি ও ভঙ্গিমা</h3>
+    <ul>
+      <li><strong>চোখের যোগাযোগ:</strong> পুরো কক্ষে ছড়িয়ে সবার দিকে তাকান, কারো দিকে অতিরিক্ত মনোযোগ না দিয়ে</li>
+      <li><strong>দাঁড়ানোর ভঙ্গি:</strong> সোজা, আত্মবিশ্বাসী, দুই পায়ে সমান ভর দিয়ে দাঁড়ান</li>
+      <li><strong>হাতের ব্যবহার:</strong> স্বাভাবিক অঙ্গভঙ্গি ব্যবহার করে পয়েন্ট জোরদার করুন, হাত পকেটে বা বুকে ভাঁজ করে রাখবেন না</li>
+      <li><strong>চলাফেরা:</strong> স্থির না থেকে কক্ষে হালকা নড়াচড়া করুন, প্রশিক্ষণার্থীদের কাছাকাছি যান</li>
+      <li><strong>কণ্ঠস্বর:</strong> স্পষ্ট, পরিমিত গতি, গুরুত্বপূর্ণ পয়েন্টে জোর দিন, একঘেয়ে স্বর এড়িয়ে চলুন</li>
+    </ul>
+  </div>
+
+  <div class="do-dont">
+    <div class="do-box"><h4>✓ করণীয়</h4><ul>
+      <li>হাসিমুখ ও উষ্ণ অভিব্যক্তি বজায় রাখুন</li>
+      <li>প্রশ্ন করার সময় থামুন, তাড়াহুড়ো করবেন না</li>
+      <li>নোটের দিকে বারবার না তাকিয়ে প্রশিক্ষণার্থীদের দিকে তাকান</li>
+    </ul></div>
+    <div class="dont-box"><h4>✗ বর্জনীয়</h4><ul>
+      <li>পিঠ দেখিয়ে বোর্ডে লিখে কথা বলা</li>
+      <li>একটানা একই জায়গায় দাঁড়িয়ে থাকা</li>
+      <li>নার্ভাস অভ্যাস (কলম টোকা দেওয়া, পা নাড়ানো)</li>
+    </ul></div>
+  </div>
+
+  <div class="example-card">
+    <span class="ex-label">প্রয়োগ</span>
+    CPR ডেমোনস্ট্রেশনের সময় শুধু ম্যানিকিনের দিকে না তাকিয়ে মাঝে মাঝে মাথা তুলে প্রশিক্ষণার্থীদের দিকে তাকান, নিশ্চিত করুন সবাই দেখতে পাচ্ছে — প্রয়োজনে জায়গা বদলে দেখান যাতে সবাই কোণ থেকেও দেখতে পায়।
+  </div>
+
+  <div class="trainer-note">
+    <p><strong>কীভাবে অনুশীলন করবেন:</strong> Day 5-এর ফাইনাল প্রেজেন্টেশনের সময় সহভাগীদের বলুন শুধু বিষয়বস্তু নয়, আপনার দাঁড়ানোর ভঙ্গি ও চোখের যোগাযোগ নিয়েও ফিডব্যাক দিতে। সম্ভব হলে নিজের প্রেজেন্টেশন ভিডিও করে পরে নিজে দেখুন — এটি সবচেয়ে কার্যকর আত্ম-উন্নতির উপায়।</p>
+  </div>
+
+  <div class="mnemonic"><span class="m-icon">🧠</span> মনে রাখুন: <b>চোখের যোগাযোগ, সোজা দাঁড়ানো, স্বাভাবিক হাতের অঙ্গভঙ্গি, স্পষ্ট কণ্ঠস্বর</b></div>
+  `
+},
+{
+  id:"tot-6", part:"tot", day:"Day 4 · Session 4.6", num:6,
+  title:"ট্রেনিং মনিটরিং, মূল্যায়ন ও রিপোর্টিং",
+  subtitle:"প্রশিক্ষণের কার্যকারিতা পরিমাপ ও নথিভুক্তকরণ",
+  html:`
+  <div class="section-block tot">
+    <h3><span class="dot"></span>মনিটরিং (চলমান পর্যবেক্ষণ)</h3>
+    <p>প্রশিক্ষণ চলাকালীন প্রশিক্ষণার্থীদের সাড়া, প্রশ্ন, অংশগ্রহণ পর্যবেক্ষণ করা — এতে বোঝা যায় কোন অংশ ভালো বোঝানো গেছে আর কোথায় সমস্যা হচ্ছে, যাতে সাথে সাথে পদ্ধতি সমন্বয় করা যায়।</p>
+  </div>
+
+  <div class="section-block tot">
+    <h3><span class="dot"></span>মূল্যায়নের ধরন</h3>
+    <ul>
+      <li><strong>প্রি-ইভালুয়েশন:</strong> প্রশিক্ষণ শুরুর আগে বেসলাইন জ্ঞান যাচাই (এই কোর্সে Day 1-এ আছে)</li>
+      <li><strong>গঠনমূলক মূল্যায়ন (Formative):</strong> প্রশিক্ষণ চলাকালীন প্রশ্নোত্তর, ছোট কুইজ দিয়ে চলমান অগ্রগতি যাচাই</li>
+      <li><strong>সমষ্টিগত মূল্যায়ন (Summative):</strong> শেষে লিখিত ও ব্যবহারিক পরীক্ষা (এই কোর্সে Day 3-এ আছে)</li>
+      <li><strong>প্রতিক্রিয়া মূল্যায়ন:</strong> প্রশিক্ষণার্থীরা প্রশিক্ষণ কেমন লাগলো তার ফিডব্যাক দেন</li>
+    </ul>
+  </div>
+
+  <div class="section-block tot">
+    <h3><span class="dot"></span>রিপোর্টিং</h3>
+    <p>প্রশিক্ষণ শেষে একটি সংক্ষিপ্ত রিপোর্ট তৈরি করুন যাতে থাকবে — অংশগ্রহণকারীর সংখ্যা, প্রি/পোস্ট-টেস্টের ফলাফলের তুলনা, মূল চ্যালেঞ্জ, সুপারিশ। এটি ভবিষ্যৎ প্রশিক্ষণ পরিকল্পনায় (Training Cycle-এর "নিরূপণ" ধাপে) ব্যবহৃত হয়।</p>
+  </div>
+
+  <div class="example-card">
+    <span class="ex-label">প্রয়োগ</span>
+    যদি পোস্ট-টেস্টে দেখা যায় বেশিরভাগ প্রশিক্ষণার্থী "Poisoning" বিষয়ে দুর্বল, রিপোর্টে তা উল্লেখ করুন এবং পরবর্তী প্রশিক্ষণে এই বিষয়ে বেশি সময় বরাদ্দের সুপারিশ করুন।
+  </div>
+
+  <div class="trainer-note">
+    <p><strong>কীভাবে অনুশীলন করবেন:</strong> নিজের প্রথম কয়েকটি প্রশিক্ষণের পর একটি সাধারণ এক-পাতার রিপোর্ট টেমপ্লেট বানিয়ে ব্যবহার করুন — তারিখ, অংশগ্রহণকারী সংখ্যা, মূল পর্যবেক্ষণ, উন্নতির ক্ষেত্র। এই অভ্যাস দীর্ঘমেয়াদে আপনাকে আরও ভালো প্রশিক্ষক করে তুলবে।</p>
+  </div>
+
+  <div class="mnemonic"><span class="m-icon">🧠</span> মনে রাখুন: <b>পর্যবেক্ষণ করুন, মূল্যায়ন করুন, লিখে রাখুন</b> — মূল্যায়ন ছাড়া প্রশিক্ষণ চক্র সম্পূর্ণ হয় না</div>
+  `
+},
+{
+  id:"tot-7", part:"tot", day:"Day 5 · Session 5.1", num:7,
+  title:"ফাইনাল প্রেজেন্টেশন ও সেশন প্ল্যান তৈরি",
+  subtitle:"শেখা সবকিছু প্রয়োগ করে নিজে প্রশিক্ষণ পরিচালনার অনুশীলন",
+  html:`
+  <div class="section-block tot">
+    <h3><span class="dot"></span>কেন এই অনুশীলন গুরুত্বপূর্ণ</h3>
+    <p>এটি "টিচব্যাক পদ্ধতি" (Teachback Methodology) নামে পরিচিত একটি প্রমাণিত কৌশল — প্রশিক্ষণার্থীরা নিজেই একটি বিষয় শেখানোর অনুশীলন করেন, আর ট্রেইনাররা তাদের পারফরম্যান্স পর্যবেক্ষণ করে প্রশিক্ষণ দক্ষতা ও বিষয়বস্তুর নির্ভুলতা নিয়ে ফিডব্যাক দেন। শুধু শোনা নয়, নিজে করে দেখানোর মাধ্যমেই দক্ষতা স্থায়ী হয়।</p>
+  </div>
+
+  <div class="section-block tot">
+    <h3><span class="dot"></span>৫ মিনিটের সেশন প্ল্যান তৈরির ধাপ</h3>
+    <ol>
+      <li>Day 1-3-এর ১২টি টপিক থেকে একটি নির্বাচন করুন</li>
+      <li>ফোর স্টেপ মেথড অনুযায়ী মিনি-লেসন প্ল্যান লিখুন (প্রস্তুত/প্রদর্শন/অনুশীলন/ফলো-আপ)</li>
+      <li>একটি সহজ শিখন উপকরণ ঠিক করুন (ছবি, ডেমো, বা সহজ প্রপ)</li>
+      <li>সময় ভাগ করুন — যেমন ১ মিনিট ভূমিকা, ২ মিনিট মূল বিষয় ও ডেমো, ২ মিনিট অনুশীলন/প্রশ্নোত্তর</li>
+      <li>উপস্থাপনার সময় Gesture & Posture (Session 4.5) মনে রেখে অনুশীলন করুন</li>
+    </ol>
+  </div>
+
+  <div class="section-block tot">
+    <h3><span class="dot"></span>উপস্থাপনার পর ফিডব্যাক নেওয়া</h3>
+    <p>প্রতিটি উপস্থাপনার পর সহভাগী ও ট্রেইনারদের কাছ থেকে গঠনমূলক ফিডব্যাক নিন — কী ভালো হয়েছে, কী উন্নতি করা যায়। এই ফিডব্যাক লিখে রাখুন যাতে পরবর্তী প্রকৃত প্রশিক্ষণে প্রয়োগ করতে পারেন।</p>
+  </div>
+
+  <div class="example-card">
+    <span class="ex-label">নমুনা কাঠামো — বার্ন সেশন (৫ মিনিট)</span>
+    <strong>০-১ মিনিট:</strong> "কেন বার্নে ভুল চিকিৎসা (তেল/টুথপেস্ট) বিপজ্জনক" নিয়ে প্রশ্ন করে আগ্রহ তৈরি<br>
+    <strong>১-৩ মিনিট:</strong> মাত্রা ব্যাখ্যা ও ঠান্ডা পানির সঠিক পদ্ধতি প্রদর্শন<br>
+    <strong>৩-৪.৫ মিনিট:</strong> দুইজনকে ধাপগুলো মুখে বলে অনুশীলন করানো<br>
+    <strong>৪.৫-৫ মিনিট:</strong> মূল বার্তা পুনরাবৃত্তি করে সমাপ্তি
+  </div>
+
+  <div class="trainer-note">
+    <p><strong>কীভাবে সর্বোচ্চ প্রস্তুতি নেবেন:</strong></p>
+    <ul>
+      <li>প্রতিটি প্রথম ১২টি টপিকের "মনে রাখুন" (mnemonic) অংশটি আপনার প্রেজেন্টেশনের ক্লোজিং লাইন হিসেবে ব্যবহার করুন — এটি প্রশিক্ষণার্থীদের মনে রাখতে সাহায্য করবে</li>
+      <li>সময়ের আগেই বাড়িতে/রুমে জোরে বলে অনুশীলন করুন — নিজের কণ্ঠস্বর ও গতি পরীক্ষা করুন</li>
+      <li>প্রশ্নের জন্য প্রস্তুত থাকুন — প্রতিটি টপিকের "বর্জনীয়" অংশ থেকে সাধারণ প্রশ্ন আসতে পারে</li>
+    </ul>
+  </div>
+
+  <div class="mnemonic"><span class="m-icon">🧠</span> মনে রাখুন: <b>প্রস্তুতি + অনুশীলন + ফিডব্যাক = দক্ষ প্রশিক্ষক</b> — এই তিনটির চর্চা কখনো থামাবেন না</div>
+  `
+},
+];
+
+/* ================= APP LOGIC ================= */
+const STORAGE_KEY = "toptraining_progress_v1";
+function getProgress(){
+  try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }catch(e){ return {}; }
+}
+function setProgress(p){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(p)); }catch(e){}
+}
+
+let currentId = null;
+
+function buildNav(){
+  const container = document.getElementById("navContainer");
+  container.innerHTML = "";
+  const progress = getProgress();
+
+  const partInfo = topics.filter(t=>t.part==="info");
+  const partA = topics.filter(t=>t.part==="aid");
+  const partB = topics.filter(t=>t.part==="tot");
+
+  const labelI = document.createElement("div");
+  labelI.className = "nav-part-label";
+  labelI.textContent = "ICRC পরিচিতি";
+  container.appendChild(labelI);
+  partInfo.forEach(t => container.appendChild(navItem(t, progress)));
+
+  const labelA = document.createElement("div");
+  labelA.className = "nav-part-label";
+  labelA.textContent = "Part 1 · ফার্স্ট এইড (Day 1–3)";
+  container.appendChild(labelA);
+  partA.forEach(t => container.appendChild(navItem(t, progress)));
+
+  const labelB = document.createElement("div");
+  labelB.className = "nav-part-label";
+  labelB.textContent = "Part 2 · ট্রেনিং মেথডোলজি (Day 4–5)";
+  container.appendChild(labelB);
+  partB.forEach(t => container.appendChild(navItem(t, progress)));
+}
+
+function navItem(t, progress){
+  const el = document.createElement("div");
+  el.className = "nav-item" + (t.id===currentId ? " active" : "");
+  el.dataset.id = t.id;
+  el.innerHTML = `<span class="tag">${t.num}</span><span>${t.title}</span><span class="learned-dot ${progress[t.id]?'on':''}"></span>`;
+  el.addEventListener("click", ()=>{ showTopic(t.id); closeSidebarMobile(); });
+  return el;
+}
+
+function updateProgressBar(){
+  const progress = getProgress();
+  const trackable = topics.filter(t=>!t.id.endsWith("-overview") && t.id!=="icrc-info");
+  const total = trackable.length;
+  const done = trackable.filter(t=>progress[t.id]).length;
+  document.getElementById("progressText").textContent = `${done} / ${total}`;
+  document.getElementById("progressFill").style.width = (total? (done/total*100):0) + "%";
+}
+
+function renderHome(){
+  currentId = null;
+  const main = document.getElementById("mainContent");
+  main.innerHTML = `
+    <div class="home-hero">
+      <h1>৫ দিনের প্রশিক্ষণ সহায়িকা</h1>
+      <p>Day 1–3-এর ফার্স্ট এইড টপিকগুলো বিস্তারিতভাবে শিখুন, উদাহরণসহ বুঝুন, এবং Day 4–5-এ শেখা ট্রেনিং মেথডোলজি প্রয়োগ করে নিজে দক্ষ প্রশিক্ষক হয়ে উঠুন। বাম পাশের তালিকা থেকে যেকোনো টপিকে ক্লিক করুন।</p>
+    </div>
+    <div class="example-card" id="goInfo" style="cursor:pointer;">
+      <span class="ex-label">ICRC পরিচিতি</span>
+      বাংলাদেশে ICRC-এর ২০২৫ সালের কার্যক্রম ও এই প্রশিক্ষণের প্রেক্ষাপট জানতে ক্লিক করুন।
+    </div>
+    <div class="home-cards">
+      <div class="home-card aid" id="goAid">
+        <div class="hc-badge">PART 1 · FIRST AID</div>
+        <h3>১২টি ফার্স্ট এইড টপিক</h3>
+        <p>Choking থেকে শুরু করে CPR, শক, রক্তক্ষরণ, পোড়া, ফ্র্যাকচার, বিষক্রিয়া, কামড় ও পরিবহন — প্রতিটির বিস্তারিত করণীয়/বর্জনীয়, উদাহরণ ও শেখানোর টিপস।</p>
+      </div>
+      <div class="home-card tot" id="goTot">
+        <div class="hc-badge">PART 2 · TRAINING METHODOLOGY</div>
+        <h3>ট্রেনিং অব ট্রেইনার্স</h3>
+        <p>ট্রেনিং সাইকেল, ফোর স্টেপ মেথড, ট্রেনিং পদ্ধতি ও উপকরণ, অঙ্গভঙ্গি-ভঙ্গিমা, মনিটরিং-মূল্যায়ন ও ফাইনাল প্রেজেন্টেশন প্রস্তুতি।</p>
+      </div>
+    </div>
+  `;
+  document.getElementById("goAid").addEventListener("click", ()=>showTopic("aid-overview"));
+  document.getElementById("goTot").addEventListener("click", ()=>showTopic("tot-overview"));
+  document.getElementById("goInfo").addEventListener("click", ()=>showTopic("icrc-info"));
+  buildNav();
+}
+
+function showTopic(id){
+  const t = topics.find(x=>x.id===id);
+  if(!t) return;
+  currentId = id;
+  const idx = topics.indexOf(t);
+  const prev = topics[idx-1];
+  const next = topics[idx+1];
+  const progress = getProgress();
+  const isLearned = !!progress[id];
+
+  const main = document.getElementById("mainContent");
+  main.innerHTML = `
+    <div class="topic-header">
+      <div class="topic-eyebrow">
+        <span class="badge ${t.part}">${t.part==='aid' ? 'FIRST AID' : t.part==='tot' ? 'TRAINING METHOD' : 'ICRC INFO'}</span>
+        <span class="day-chip">${t.day}</span>
+      </div>
+      <h2>${t.title}</h2>
+      <p class="subtitle">${t.subtitle}</p>
+      <button class="mark-learned ${isLearned?'on':''}" id="learnBtn">${isLearned ? '✓ শেখা হয়েছে' : 'শেখা হয়েছে চিহ্নিত করুন'}</button>
+    </div>
+    <div class="topic-body">${t.html}</div>
+    <div class="footer-nav">
+      <button id="prevBtn" ${!prev?'disabled':''}>
+        <span class="lbl">← আগের টপিক</span>
+        <span>${prev ? prev.title : ''}</span>
+      </button>
+      <button class="next" id="nextBtn" ${!next?'disabled':''}>
+        <span class="lbl">পরের টপিক →</span>
+        <span>${next ? next.title : ''}</span>
+      </button>
+    </div>
+  `;
+
+  document.getElementById("learnBtn").addEventListener("click", ()=>{
+    const p = getProgress();
+    p[id] = !p[id];
+    setProgress(p);
+    showTopic(id);
+    updateProgressBar();
+  });
+  if(prev) document.getElementById("prevBtn").addEventListener("click", ()=>showTopic(prev.id));
+  if(next) document.getElementById("nextBtn").addEventListener("click", ()=>showTopic(next.id));
+
+  buildNav();
+  window.scrollTo({top:0, behavior:"instant"});
+  document.querySelector(".main").scrollTo({top:0, behavior:"instant"});
+}
+
+/* Search */
+const searchInput = document.getElementById("searchInput");
+const searchResults = document.getElementById("searchResults");
+searchInput.addEventListener("input", ()=>{
+  const q = searchInput.value.trim().toLowerCase();
+  searchResults.innerHTML = "";
+  if(!q){ return; }
+  const hits = topics.filter(t =>
+    t.title.toLowerCase().includes(q) ||
+    t.subtitle.toLowerCase().includes(q) ||
+    t.html.toLowerCase().includes(q)
+  ).slice(0,8);
+  hits.forEach(t=>{
+    const div = document.createElement("div");
+    div.className = "search-hit";
+    div.innerHTML = `<b>${t.part==='aid'?'FA':'ToT'}</b> · ${t.title}`;
+    div.addEventListener("click", ()=>{
+      showTopic(t.id);
+      searchInput.value = "";
+      searchResults.innerHTML = "";
+      closeSidebarMobile();
+    });
+    searchResults.appendChild(div);
+  });
+});
+
+/* Mobile sidebar */
+const sidebar = document.getElementById("sidebar");
+const overlay = document.getElementById("overlay");
+document.getElementById("menuBtn").addEventListener("click", ()=>{
+  sidebar.classList.add("open");
+  overlay.classList.add("show");
+});
+overlay.addEventListener("click", closeSidebarMobile);
+function closeSidebarMobile(){
+  sidebar.classList.remove("open");
+  overlay.classList.remove("show");
+}
+
+/* Init */
+updateProgressBar();
+renderHome();
+</script>
+</body>
+</html>
